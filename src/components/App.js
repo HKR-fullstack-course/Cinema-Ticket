@@ -1,22 +1,15 @@
 import React from "react";
-import logo from "../img/logo.svg";
 import "../style/App.css";
 
-import Name from "./Name";
+import Card from "./Card";
 
 class App extends React.Component {
   render() {
+    const str = '333dgdfgdf'
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          Name from Back-end : <Name />
-         
-        </header>
-      </div>
+        <Card id={str}/>
+       </div>
     );
   }
 }
