@@ -2,12 +2,20 @@ const express = require("express");
 const router = express.Router();
 
 const Movie = require("../model/Movie");
+const { movieValidation } = require("../validation/movie");
 
 router
   .post("/add_movie", async (req, res) => {
     if (req.body == null) {
       return res.status(400).json({
         error: "Bad request",
+      });
+    }
+    const { error } = movieValidation(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        error: error.details[0].message,
       });
     }
 

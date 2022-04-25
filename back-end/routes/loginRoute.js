@@ -5,7 +5,17 @@ const bcrypt = require("bcryptjs");
 const User = require("../model/User");
 const Admin = require("../model/Admin");
 
+const { loginValidation } = require("../validation/login");
+
 router.post("/login", async (req, res) => {
+  const { error } = loginValidation(req.body);
+
+  if (error) {
+    return res.status(400).json({
+      error: error.details[0].message,
+    });
+  }
+
   const user = await User.findOne({ email: req.body.email });
   const admin = await Admin.findOne({ email: req.body.email });
 
@@ -22,7 +32,7 @@ router.post("/login", async (req, res) => {
     role = user;
   }
   if (admin) {
-    validPassword = await bcrypt.compare(req.body.password, user.password);
+    validPassword = await bcrypt.compare(req.body.password, admin.password);
     role = admin;
     role["admin"] = true;
   }

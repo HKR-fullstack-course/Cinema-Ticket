@@ -32,7 +32,7 @@ const movieSchema = new mongoose.Schema({
     default: -1, // -1 if movie is not rated
   },
   budget: {
-    type: Number,
+    type: String,
   },
   main_actors: {
     type: Array,
@@ -43,7 +43,7 @@ const movieSchema = new mongoose.Schema({
     required: true,
   },
   show_time: {
-    type: Date,
+    type: String,
     require: true,
   },
   age_range: {
