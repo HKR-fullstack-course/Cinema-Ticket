@@ -15,7 +15,6 @@ class Card extends React.Component {
   }
 
   componentDidMount = async () => {
-    // owner_id should be replaced with the owner of the image e.g. movie-id
     const response = await img_api.get(`/image?owner_id=${this.props.id}`);
     const base64Flag = "data:image/jpeg;base64,";
     const imageStr = this.arrayBufferToBase64(response.data.img.img.data.data);
@@ -25,7 +24,13 @@ class Card extends React.Component {
   render() {
     return (
       <div>
-        <Image image={this.state.image} />
+        {this.props.name}
+        <br />
+        <Image image={this.state.image} alt={this.props.name} />
+        <br />
+        Rate: {this.props.rate}
+        <br />
+        <br />
       </div>
     );
   }

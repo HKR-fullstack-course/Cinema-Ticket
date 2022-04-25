@@ -10,7 +10,7 @@ router
     const userExist = await User.findOne({ _id: req.body.customer_id });
     const movieExist = await Movie.findOne({ _id: req.body.movie_id });
 
-    if (!userExist || !movieExist) {
+    if (!userExist && !movieExist) {
       return res.status(400).json({
         error: "Check customer and movie id",
       });
@@ -19,7 +19,7 @@ router
     const new_ticket = Ticket({
       customer_id: req.body.customer_id,
       movie_id: req.body.movie_id,
-     });
+    });
 
     try {
       await new_ticket.save();
