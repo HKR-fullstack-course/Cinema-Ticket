@@ -16,7 +16,7 @@ class CardList extends React.Component {
     const movieCard = this.state.movies.map((movie, index) => {
       console.log(movie);
       return (
-        <Card name={movie.name} id={movie._id} key={index} rate={movie.rate} />
+        <Card name={movie.name} _id={movie._id} key={index} rate={movie.rate} />
       );
       // <li>{movie.name}</li>
     });

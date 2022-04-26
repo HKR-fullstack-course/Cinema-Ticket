@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import Image from "./Image";
 
 import img_api from "../api/img";
+import api from "../api/api";
 
 class Card extends React.Component {
   state = { image: "" };
@@ -15,7 +16,7 @@ class Card extends React.Component {
   }
 
   componentDidMount = async () => {
-    const response = await img_api.get(`/image?owner_id=${this.props.id}`);
+    const response = await api.get(`/image?owner_id=${this.props._id}`);
     const base64Flag = "data:image/jpeg;base64,";
     const imageStr = this.arrayBufferToBase64(response.data.img.img.data.data);
     this.setState({ image: base64Flag + imageStr });
