@@ -1,8 +1,9 @@
 import React from "react";
-import logo from "../img/logo.svg";
 import "../style/App.css";
-import FilmSlider from "./Slider"
-import Name from "./Name";
+
+import FilmSlider from "./Slider";
+
+import CardList from "./CardList";
 
 class App extends React.Component {
   render() {
@@ -16,6 +17,7 @@ class App extends React.Component {
           Name from Back-end : <Name />
         </header> */}
         <FilmSlider />
+        <CardList />
       </div>
     );
   }
