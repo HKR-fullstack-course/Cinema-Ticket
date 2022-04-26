@@ -1,0 +1,16 @@
+.container{
+    background-color:rgb(255, 255, 255);
+    margin-top: 30px;
+    margin-right: 60px;
+    margin-bottom: 0;
+    margin-left: 60px;
+}
+
+
+.slick-prev::before {
+    color: black
+}
+
+.slick-next::before{
+    color: black
+}
