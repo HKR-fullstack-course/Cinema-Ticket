@@ -16,6 +16,7 @@
     "nodemon": "^2.0.15"
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "avatar-builder": "^1.0.2",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
