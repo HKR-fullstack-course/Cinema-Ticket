@@ -2,12 +2,12 @@ import React, { Component } from "react";
 
 import Image from "./Image";
 
-import img_api from "../api/img";
 import api from "../api/api";
 
 class Card extends React.Component {
   state = { image: "" };
 
+  
   arrayBufferToBase64(buffer) {
     var binary = "";
     var bytes = [].slice.call(new Uint8Array(buffer));
