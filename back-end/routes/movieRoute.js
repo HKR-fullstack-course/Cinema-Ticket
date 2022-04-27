@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+var moment = require("moment");
 
 const Movie = require("../model/Movie");
 const { movieValidation } = require("../validation/movie");
@@ -11,11 +12,11 @@ router
         error: "Bad request",
       });
     }
-    const { error } = movieValidation(req.body);
+    const { movieErr } = movieValidation(req.body);
 
-    if (error) {
+    if (movieErr) {
       return res.status(400).json({
-        error: error.details[0].message,
+        error: movieErr.details[0].message,
       });
     }
 
@@ -30,6 +31,7 @@ router
       main_actors: req.body.main_actors,
       ticket_price: req.body.ticket_price,
       show_time: req.body.show_time,
+      show_date: req.body.show_date,
       age_range: req.body.age_range,
     });
 
@@ -48,13 +50,19 @@ router
     }
   })
   .get("/all_movies", async (req, res) => {
-    const movies = await Movie.find();
+    const moviesSet = await Movie.find().then((movies) => {
+      movies.forEach((movie) => {
+        movie.show_time = formatTime(movie.show_time, true);
+        movie.release_date = formatTime(movie.release_date, false);
+      });
+      return movies;
+    });
 
     try {
       res.status(200).json({
         confirmation: "success",
-        number_of_movies: movies.length,
-        body: movies,
+        number_of_movies: moviesSet.length,
+        body: moviesSet,
       });
     } catch (error) {
       res.status(404).json({
@@ -77,5 +85,10 @@ router
       });
     }
   });
+
+const formatTime = (time, dayRequired) => {
+  const date = dayRequired ? "dddd, Do MMMM YYYY; h:mm a" : "Do MMMM YYYY";
+  return moment(new Date(time)).format(date);
+};
 
 module.exports = router;
