@@ -81,6 +81,7 @@ router
       const body = uniqueSet.map((movie) => {
         return {
           name: movie.name,
+          movie_type: movie.movie_type,
           description: movie.description,
           rate: movie.rate,
         };
