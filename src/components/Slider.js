@@ -14,7 +14,7 @@ export default class FilmSlider extends Component {
         };
         return (
             <div className="container">
-                <h2> Single Item</h2>
+                <h2> {this.props.title}</h2>
                 <Slider {...settings}>
                     <div>
                         <h3>movie 1</h3>

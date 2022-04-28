@@ -15,7 +15,8 @@ class App extends React.Component {
           </p>
           Name from Back-end : <Name />
         </header> */}
-        <FilmSlider />
+        <Parent_Slide ></Parent_Slide>
+
       </div>
     );
   }
