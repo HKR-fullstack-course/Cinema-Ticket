@@ -9,7 +9,7 @@ const movieValidation = (data) => {
     description: Joi.string().max(1024),
     rate: Joi.number().default(-1),
     budget: Joi.string(),
-    main_actirs: Joi.array().required(),
+    main_actors: Joi.array().required(),
     ticket_price: Joi.number().required(),
     show_time: Joi.string().required(),
     age_range: Joi.number().required(),
