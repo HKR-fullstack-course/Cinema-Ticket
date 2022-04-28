@@ -12,11 +12,11 @@ router
         error: "Bad request",
       });
     }
-    const { movieErr } = movieValidation(req.body);
+    const { error } = movieValidation(req.body);
 
-    if (movieErr) {
+    if (error) {
       return res.status(400).json({
-        error: movieErr.details[0].message,
+        error: error.details[0].message,
       });
     }
 
@@ -42,10 +42,10 @@ router
         movie_id: new_movie._id,
         body: `The movie: '${req.body.name}' is added to db`,
       });
-    } catch (error) {
+    } catch (err) {
       res.status(404).json({
         confirmation: "fail",
-        body: error.message,
+        body: err.message,
       });
     }
   })
@@ -71,12 +71,24 @@ router
       });
     }
   })
-  .get("/find_movie", async (req, res) => {
+  .get("/movies", async (req, res) => {
     try {
-      const movie = await Movie.find({ _id: req.query.id });
+      const movies = await Movie.find();
+      const uniqueSet = [
+        ...new Map(movies.map((item) => [item.name.trim(), item])).values(),
+      ];
+
+      const body = uniqueSet.map((movie) => {
+        return {
+          name: movie.name,
+          description: movie.description,
+          rate: movie.rate,
+        };
+
+      });
       res.status(200).json({
         confirmation: "success",
-        body: movie,
+        body,
       });
     } catch (error) {
       res.status(404).json({
@@ -86,8 +98,8 @@ router
     }
   });
 
-const formatTime = (time, dayRequired) => {
-  const date = dayRequired ? "dddd, Do MMMM YYYY; h:mm a" : "Do MMMM YYYY";
+const formatTime = (time, timeRequired) => {
+  const date = timeRequired ? "dddd, Do MMMM YYYY; h:mm a" : "Do MMMM YYYY";
   return moment(new Date(time)).format(date);
 };
 
