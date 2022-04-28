@@ -3,6 +3,10 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../style/Slider2.css"
+
+
+import Card from './Card'
+
 export default class FilmSlider extends Component {
     render() {
         const settings = {
