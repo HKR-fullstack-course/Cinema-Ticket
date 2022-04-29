@@ -8,7 +8,7 @@ const movieSchema = new mongoose.Schema({
     max: 255,
   },
   release_date: {
-    type: Date,
+    type: String,
     required: true,
   },
   director: {
@@ -42,13 +42,17 @@ const movieSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  show_long: {
+    type: Number,
+    require: true,
+  },
   show_time: {
     type: String,
     require: true,
   },
   age_range: {
-      type: Number,
-      required: true
+    type: Number,
+    required: true,
   },
   date: {
     type: Date,

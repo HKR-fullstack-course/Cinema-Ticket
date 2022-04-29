@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+var moment = require("moment");
 
 const Movie = require("../model/Movie");
 const { movieValidation } = require("../validation/movie");
@@ -30,6 +31,7 @@ router
       main_actors: req.body.main_actors,
       ticket_price: req.body.ticket_price,
       show_time: req.body.show_time,
+      show_date: req.body.show_date,
       age_range: req.body.age_range,
     });
 
@@ -40,21 +42,27 @@ router
         movie_id: new_movie._id,
         body: `The movie: '${req.body.name}' is added to db`,
       });
-    } catch (error) {
+    } catch (err) {
       res.status(404).json({
         confirmation: "fail",
-        body: error.message,
+        body: err.message,
       });
     }
   })
   .get("/all_movies", async (req, res) => {
-    const movies = await Movie.find();
+    const moviesSet = await Movie.find().then((movies) => {
+      movies.forEach((movie) => {
+        movie.show_time = formatTime(movie.show_time, true);
+        movie.release_date = formatTime(movie.release_date, false);
+      });
+      return movies;
+    });
 
     try {
       res.status(200).json({
         confirmation: "success",
-        number_of_movies: movies.length,
-        body: movies,
+        number_of_movies: moviesSet.length,
+        body: moviesSet,
       });
     } catch (error) {
       res.status(404).json({
@@ -63,12 +71,58 @@ router
       });
     }
   })
-  .get("/find_movie", async (req, res) => {
+  .get("/movies", async (req, res) => {
     try {
-      const movie = await Movie.find({ _id: req.query.id });
+      const movies = await Movie.find();
+      const uniqueSet = [
+        ...new Map(movies.map((item) => [item.name.trim(), item])).values(),
+      ];
+
+      const body = uniqueSet.map((movie) => {
+        return {
+          name: movie.name,
+          movie_type: movie.movie_type,
+          description: movie.description,
+          rate: movie.rate,
+        };
+      });
       res.status(200).json({
         confirmation: "success",
-        body: movie,
+        body,
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: error.message,
+      });
+    }
+  })
+  .get("/movie", async (req, res) => {
+    const movies = await Movie.find();
+    const movie = {};
+    const data = movies.filter((item) => item.name == req.query.movie_name);
+
+    for (let obj of movies) {
+      if (obj.name.trim() == req.query.movie_name) {
+        movie[obj._id] = formatTime(obj.show_time, true);
+      }
+    }
+
+    res.json({ confirmation: "seccuss", body: movie });
+  })
+  .get("/all_movies/:movie_type", async (req, res) => {
+    try {
+      const all_movies = await Movie.find({
+        movie_type: new RegExp("^" + req.params.movie_type + "$", "i"),
+      });
+
+      const uniqueSet = [
+        ...new Map(all_movies.map((item) => [item.name.trim(), item])).values(),
+      ];
+
+      res.status(200).json({
+        confirmation: "success",
+        body: uniqueSet,
       });
     } catch (error) {
       res.status(404).json({
@@ -77,5 +131,10 @@ router
       });
     }
   });
+
+const formatTime = (time, timeRequired) => {
+  const date = timeRequired ? "dddd, Do MMMM YYYY; h:mm a" : "Do MMMM YYYY";
+  return moment(new Date(time)).format(date);
+};
 
 module.exports = router;
