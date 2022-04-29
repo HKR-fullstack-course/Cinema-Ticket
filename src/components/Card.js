@@ -4,10 +4,10 @@ import Image from "./Image";
 
 import api from "../api/api";
 
-class Card extends React.Component {
+class Card extends Component {
   state = { image: "" };
 
-  
+
   arrayBufferToBase64(buffer) {
     var binary = "";
     var bytes = [].slice.call(new Uint8Array(buffer));
@@ -39,6 +39,9 @@ class Card extends React.Component {
         <br />
         Rate: {this.props.rate}
         <br />
+        Show: {this.props.show_time}
+        <br />
+        movie_type: {this.props.movie_type}
         <br />
       </div>
     );

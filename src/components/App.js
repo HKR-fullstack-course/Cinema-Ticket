@@ -1,10 +1,9 @@
 import React from "react";
 import "../style/App.css";
 
-import FilmSlider from "./Slider";
-
+import Parent_Slide from "./Parent_Slide"
 import CardList from "./CardList";
-
+import Slider from "./Slider"
 class App extends React.Component {
   render() {
     return (
@@ -16,9 +15,8 @@ class App extends React.Component {
           </p>
           Name from Back-end : <Name />
         </header> */}
-        <FilmSlider />
-        <CardList />
-      </div>
+        <Slider title="Everything test" />
+      </div >
     );
   }
 }

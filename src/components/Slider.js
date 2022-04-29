@@ -4,10 +4,25 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../style/Slider2.css"
 
+import api from "../api/api";
 
 import Card from './Card'
 
 export default class FilmSlider extends Component {
+    state = { movies: [] }; //this is to get the data
+
+    componentDidMount = async () => {
+        const response = await api.get(`/all_movies`);
+        this.setState({ movies: response.data.body });
+    };
+
+    slider() { //Function to loop through and make each cell
+        return this.state.movies.map((movie, index) =>
+            <Card name={movie.name} _id={movie._id} key={index} rate={movie.rate} show_time={movie.show_time} movie_type={movie.movie_type} />
+        );
+    }
+
+
     render() {
         const settings = {
             dots: true,
@@ -20,21 +35,7 @@ export default class FilmSlider extends Component {
             <div className="container">
                 <h2> {this.props.title}</h2>
                 <Slider {...settings}>
-                    <div>
-                        <h3>movie 1</h3>
-                    </div>
-                    <div>
-                        <h3>movie 2</h3>
-                    </div>
-                    <div>
-                        <h3>movie 3</h3>
-                    </div>
-                    <div>
-                        <h3>movie 4</h3>
-                    </div>
-                    <div>
-                        <h3>movie 5</h3>
-                    </div>
+                    {this.slider()}
                 </Slider>
             </div>
         );
