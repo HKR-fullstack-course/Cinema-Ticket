@@ -3,7 +3,7 @@ const Joi = require("@hapi/joi");
 const movieValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(6).max(255).required(),
-    release_date: Joi.date().required(),
+    release_date: Joi.string().required(),
     director: Joi.string().min(8).max(255).required(),
     movie_type: Joi.string().min(7).max(512),
     description: Joi.string().max(1024),
@@ -11,6 +11,7 @@ const movieValidation = (data) => {
     budget: Joi.string(),
     main_actors: Joi.array().required(),
     ticket_price: Joi.number().required(),
+    show_long: Joi.number().required(),
     show_time: Joi.string().required(),
     age_range: Joi.number().required(),
   });
