@@ -26,6 +26,10 @@ const userSchema = new mongoose.Schema({
     length: 10,
     min: 10,
   },
+  number_of_tickets: {
+    type: Number,
+    default: 0,
+  },
   date: {
     type: Date,
     default: Date.now,

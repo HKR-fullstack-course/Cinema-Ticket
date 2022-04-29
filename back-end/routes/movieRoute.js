@@ -85,11 +85,44 @@ router
           description: movie.description,
           rate: movie.rate,
         };
-
       });
       res.status(200).json({
         confirmation: "success",
         body,
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: error.message,
+      });
+    }
+  })
+  .get("/movie", async (req, res) => {
+    const movies = await Movie.find();
+    const movie = {};
+    const data = movies.filter((item) => item.name == req.query.movie_name);
+
+    for (let obj of movies) {
+      if (obj.name.trim() == req.query.movie_name) {
+        movie[obj._id] = formatTime(obj.show_time, true);
+      }
+    }
+
+    res.json({ confirmation: "seccuss", body: movie });
+  })
+  .get("/all_movies/:movie_type", async (req, res) => {
+    try {
+      const all_movies = await Movie.find({
+        movie_type: new RegExp("^" + req.params.movie_type + "$", "i"),
+      });
+
+      const uniqueSet = [
+        ...new Map(all_movies.map((item) => [item.name.trim(), item])).values(),
+      ];
+
+      res.status(200).json({
+        confirmation: "success",
+        body: uniqueSet,
       });
     } catch (error) {
       res.status(404).json({
