@@ -2,8 +2,6 @@ import React from "react";
 import "../style/App.css";
 
 import Parent_Slide from "./Parent_Slide"
-import CardList from "./CardList";
-import Slider from "./Slider"
 class App extends React.Component {
   render() {
     return (
@@ -15,7 +13,7 @@ class App extends React.Component {
           </p>
           Name from Back-end : <Name />
         </header> */}
-        <Slider title="Everything test" />
+        <Parent_Slide />
       </div >
     );
   }

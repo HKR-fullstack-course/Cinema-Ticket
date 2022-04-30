@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-
 import Image from "./Image";
-
 import api from "../api/api";
-
+import style from "../style/Card.css"
 class Card extends Component {
   state = { image: "" };
 
@@ -32,16 +30,10 @@ class Card extends Component {
 
   render() {
     return (
-      <div>
-        {this.props.name}
-        <br />
-        <Image image={this.state.image} alt={this.props.name} />
-        <br />
-        Rate: {this.props.rate}
-        <br />
-        Show: {this.props.show_time}
-        <br />
-        movie_type: {this.props.movie_type}
+      <div class="style.card card-1">
+        <div class="style.card card-top "><Image image={this.state.image} alt={this.props.name} />
+        </div>
+        <h4 class="style.card card-bottom">{this.props.name}</h4>
         <br />
       </div>
     );

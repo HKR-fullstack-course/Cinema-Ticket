@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import Slider from './Slider'
 
-import Card from './Card';
-
 import api from '../api/api'
 
 class Parent_Slide extends Component {
@@ -25,19 +23,17 @@ class Parent_Slide extends Component {
     };
 
     render() {
-        // this.state.movies.forEach((movie) => {
-        //     if (this.state.movie_type.includes(movie.movie_type.toLowerCase()) === false) {
-        //         this.state.movie_type.push(movie.movie_type.toLowerCase());
-        //     }
-        // });
-        // const All = this.state.movie_type.map(genre => {
-        //     return (
-        //         <Slider title={genre} ></Slider>
-        //     )
-        // });
-        // return <div>{All}</div>;
-
-        return
+        this.state.movies.forEach((movie) => {
+            if (this.state.movie_type.includes(movie.movie_type.toLowerCase()) === false) {
+                this.state.movie_type.push(movie.movie_type.toLowerCase());
+            }
+        });
+        const All = this.state.movie_type.map(genre => {
+            return (
+                <Slider title={genre} movie_type={genre}></Slider>
+            )
+        });
+        return <div>{All}</div>;
     }
 }
 
