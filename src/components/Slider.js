@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../style/Slider.css"
+import slider_style from "../style/Slider.css"
 
 import api from "../api/api";
 
@@ -28,10 +28,10 @@ export default class FilmSlider extends Component {
             dots: true,
             infinite: false,
             speed: 500,
-
+            slidesToShow: 2,
         };
         return (
-            <div className="container">
+            <div className="slider_style container">
                 <h2> {this.props.title}</h2>
                 <Slider {...settings}>
                     {this.slider()}

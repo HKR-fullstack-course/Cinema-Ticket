@@ -13,7 +13,7 @@ class Parent_Slide extends Component {
     //Make many slide base on each array
 
     //extra: filter the current time with the possible time
-
+    //extra: 
     // this.setState({
     //     movie_type: [...this.state.movie_type, movie.movie_type]
     // });

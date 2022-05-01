@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Image from "./Image";
 import api from "../api/api";
-import style from "../style/Card.css"
+import style from "../style/Card.css" //not used but still in effect
 class Card extends Component {
   state = { image: "" };
 
@@ -28,9 +28,13 @@ class Card extends Component {
       });
   };
 
+  async handleClick(name) {
+    console.log(`this is ${name}`)
+  }
+
   render() {
     return (
-      <div class="style.card card-1">
+      <div class="style.card card-1" onClick={() => { this.handleClick(this.props.name) }}>
         <div class="style.card card-top "><Image image={this.state.image} alt={this.props.name} />
         </div>
         <h4 class="style.card card-bottom">{this.props.name}</h4>

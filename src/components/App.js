@@ -1,7 +1,7 @@
 import React from "react";
 import "../style/App.css";
 
-import Parent_Slide from "./Parent_Slide"
+import Parent_slide from "./Parent_Slide"
 class App extends React.Component {
   render() {
     return (
@@ -13,7 +13,7 @@ class App extends React.Component {
           </p>
           Name from Back-end : <Name />
         </header> */}
-        <Parent_Slide />
+        <Parent_slide />
       </div >
     );
   }
