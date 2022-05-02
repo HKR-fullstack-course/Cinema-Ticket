@@ -1,0 +1,77 @@
+#login-form {
+  border: 2px solid hsl(240, 9%, 91%);
+  width: 40%;
+  height: 30rem;
+  margin: 7% auto auto auto;
+  box-shadow: 5px 5px 5px #888888;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  font-size: x-large;
+}
+
+#login-form > span {
+  grid-column: 2 / -1;
+}
+
+#username,
+#password {
+  width: 90%;
+  height: 3rem;
+  margin: 2rem 0;
+  grid-column: 2 / -1;
+  font-size: large;
+}
+
+#login-form > span {
+  grid-column: 2 / -1;
+
+  margin: 2rem 0 0;
+}
+
+#error {
+    /* position: absolute; */
+    font-size: medium; 
+    grid-row: 5;
+    grid-column: 2 / -1
+
+}
+
+.btn {
+  text-align: center;
+  justify-self: center;
+  width: 8rem;
+  grid-column: 4/ 8;
+  grid-row: 7 / 9;
+  border-radius: 20px;
+  background: #6883c1;
+  color: hsl(240, 9%, 91%);
+  font-size: large;
+}
+
+@media screen and (max-width: 1250px) {
+  #login-form {
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #login-form {
+    font-size: larger;
+    width: 65%;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  #login-form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #login-form {
+    width: 100%;
+    box-shadow: none;
+    border: none;
+  }
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API - Documentation</title>
+    <link rel="stylesheet" href="./style/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <ul class="header">
+      <a class="link" href="./index.html">
+        <li>Home</li>
+      </a>
+      <a class="link" href="./login.html">
+        <li>Login</li>
+      </a>
+    </ul>
+
+    
+    <section class="section">
+        <h2 class=>API - Documentation</h2>
+      <h3>Welcome in API-Documenation for Cinama-Ticket-App.</h3>
+      <p>The following Requests are open to use without Auth:</p>
+    </section>
+
+    <div class="req-container">
+      <div class="req-clr">&nbsp;</div>
+      <span class="req-verb">get</span>
+      <i class="fa fa-copy copy-icon" class="copy-icon" style="font-size:24px"></i>
+        <span class="copy-icon-label">Copy</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/movies </span>
+      <span class="req-type"></span>
+      <div class="req-descip">The response of this request is list of movies with no repeating. 
+          <br> Data retrived about the movie is name, movie-type, rate and description.
+      </div>
+      <div class="req-ex" style="height: ;">
+
+        </div>
+    </div>
+
+    <div class="req-container">
+      <div class="req-clr">&nbsp;</div>
+      <span class="req-verb">get</span>
+      <span class="copy-icon-label">Copy</span>
+      <i class="fa fa-copy copy-icon" class="copy-icon" style="font-size:24px"></i>
+      <span class="req-url">http://localhost:5000/api/image?owner_id=<span class="urlQuary-span">{image-ID}</span> </span>
+      <span class="req-type">Query</span>
+      <div class="req-descip">The response of this request is hex value for image that is saved on db.
+        <br>
+        Notice that the owner may be movie or user where db-collection for image is used for all images. <br>
+        Don't forget to replace  {image-ID} with the actual value of owner-id!
+      </div>
+      <div class="req-ex">
+          owner_id
+        </div>
+    </div>
+
+    <script src="./src/index.js"></script>
+  </body>
+</html>
