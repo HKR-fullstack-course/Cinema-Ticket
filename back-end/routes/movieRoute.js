@@ -11,7 +11,7 @@ router
       return res.status(400).json({
         error: "Bad request",
       });
-    }
+    } 
     const { error } = movieValidation(req.body);
 
     if (error) {
@@ -80,6 +80,7 @@ router
 
       const body = uniqueSet.map((movie) => {
         return {
+          _id: movie._id,
           name: movie.name,
           movie_type: movie.movie_type,
           description: movie.description,
@@ -99,11 +100,11 @@ router
   })
   .get("/movie", async (req, res) => {
     const movies = await Movie.find();
+    const moviesWithAgeRate = movies.filter( (element)  => element.age_range <= req.query.user_age)
     const movie = {};
-    const data = movies.filter((item) => item.name == req.query.movie_name);
 
-    for (let obj of movies) {
-      if (obj.name.trim() == req.query.movie_name) {
+    for (let obj of moviesWithAgeRate) {
+      if (obj.name.trim() == req.query.movie_name && checkTime(obj.show_time)) {
         movie[obj._id] = formatTime(obj.show_time, true);
       }
     }
@@ -136,5 +137,9 @@ const formatTime = (time, timeRequired) => {
   const date = timeRequired ? "dddd, Do MMMM YYYY; h:mm a" : "Do MMMM YYYY";
   return moment(new Date(time)).format(date);
 };
+
+const checkTime = (movieTime) => {
+  return Date.parse(movieTime) > Date.now()
+}
 
 module.exports = router;
