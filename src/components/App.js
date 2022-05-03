@@ -13,7 +13,7 @@ class App extends React.Component {
           </p>
           Name from Back-end : <Name />
         </header> */}
-        <Parent_slide />
+        <Route path="/movie/:name" element={<Parent_slide />} />
       </div >
     );
   }
