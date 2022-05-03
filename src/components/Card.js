@@ -3,7 +3,7 @@ import Image from "./Image";
 import api from "../api/api";
 
 import style from "../style/Card.css" //not used but still in effect
-import Link from "@hapi/joi/lib/types/link";
+import { Link } from 'react-router-dom';
 
 class Card extends Component {
   state = { image: "" };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
- import Navbar from "./Navbar";
+import Navbar from "./Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../pages";
 import About from "../pages/about";
@@ -15,7 +15,6 @@ function App() {
   };
   return (
     <Router>
-      this one
       {/* //NavBar   */}
       <Navbar toggle={toggle} />
       <Sidebar isOpen={isOpen} toggle={toggle} />
