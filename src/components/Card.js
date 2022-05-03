@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import Image from "./Image";
 import api from "../api/api";
-<<<<<<< HEAD
-import style from "../style/Card.css"; //not used but still in effect
-=======
+
 import style from "../style/Card.css" //not used but still in effect
 import Link from "@hapi/joi/lib/types/link";
->>>>>>> 1d9c14774c83d6a8c23bf2e3593033c86103f2c7
+
 class Card extends Component {
   state = { image: "" };
 
@@ -39,20 +37,7 @@ class Card extends Component {
 
   render() {
     return (
-<<<<<<< HEAD
-      <div
-        class="style.card card-1"
-        onClick={() => {
-          this.handleClick(this.props.name);
-        }}
-      >
-        <div class="style.card card-top ">
-          <Image image={this.state.image} alt={this.props.name} />
-        </div>
-        <h4 class="style.card card-bottom">{this.props.name}</h4>
-        <br />
-      </div>
-=======
+
       <Link to={"/movie/" + this.props.name}>
         <div class="style.card card-1">
           <div class="style.card card-top "><Image image={this.state.image} alt={this.props.name} />
@@ -61,7 +46,6 @@ class Card extends Component {
           <br />
         </div>
       </Link>
->>>>>>> 1d9c14774c83d6a8c23bf2e3593033c86103f2c7
     );
   }
 }
