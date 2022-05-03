@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  birthdate: {
+    type: String,
+    required: true,
+  },
   date: {
     type: Date,
     default: Date.now,

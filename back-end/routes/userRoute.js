@@ -34,6 +34,7 @@ router.post("/create_user", async (req, res) => {
     email: req.body.email,
     password: hashPassword,
     phonenumber: req.body.phonenumber,
+    birthdate: req.body.birthdate
   });
 
   try {
@@ -44,7 +45,7 @@ router.post("/create_user", async (req, res) => {
       body: user.name + " created",
     });
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({ confirmation: "fail", error: error.message });
   }
 });
 
