@@ -8,6 +8,7 @@ import Movies from './pages/movies';
 import Signin from './pages/signin';
 import Services from './pages/services';
 import Sidebar from './components/Sidebar';
+import Parent_slide from "./Parent_Slide"
 function App() {
   const [isOpen,setIsOpen]=useState(false);
   const toggle=()=>{
@@ -15,7 +16,8 @@ function App() {
   }
   return (
     <Router>
-      <Navbar toggle={toggle} />
+        {/* //NavBar   */}
+        <Navbar toggle={toggle} />
       <Sidebar isOpen={isOpen} toggle={toggle}/>
       <Routes>
         <Route path='/' exact element={<Home/>} />
@@ -23,6 +25,8 @@ function App() {
         <Route path='/services'element ={<Services/>} />
         <Route path='/movies'element ={<Movies/>} />
         <Route path='/signin'element ={<Signin/>} />
+        {/* //Movie slider  */}
+        <Route path="/movie/:name" element={<Parent_slide />} />
       </Routes>
     </Router>
   );
