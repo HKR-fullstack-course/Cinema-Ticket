@@ -29,6 +29,7 @@ export default class FilmSlider extends Component {
             infinite: false,
             speed: 500,
             slidesToShow: 2,
+            autoPlay: true
         };
         return (
             <div className="slider_style container">

@@ -1,17 +1,9 @@
 import React from 'react';
+import Parent_Slide from '../components/Parent_Slide'
 
 const Movies = () => {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '90vh'
-      }}
-    >
-      <h1>Movies</h1>
-    </div>
+    <Parent_Slide />
   );
 };
 
