@@ -9,6 +9,7 @@ import Home from "../pages";
 import About from "../pages/about";
 import Movies from "../pages/movies";
 import Signin from "../pages/signin";
+import Register from "../pages/register";
 import ErrorPage from '../pages/ErrorPage'
 import Services from "../pages/services";
 
@@ -34,6 +35,7 @@ const App = () => {
         <Route exact path="/services" element={<Services />} />
         <Route exact path="/movies" element={<Movies />} />
         <Route exact path="/signin" element={<Signin />} />
+        <Route exact path="/register" element={<Register />} />
         {/* //Movie slider  */}
         <Route exact path="/movie/:name" element={<Parent_slide />} />
 
