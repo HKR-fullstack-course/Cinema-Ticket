@@ -30,7 +30,10 @@ router
       new_img.owner_id = req.body.owner_id;
       await new_img.save();
 
-      res.json({
+      res.
+      status(200)
+      .header("Access-Control-Allow-Origin", "*")    // test solve CORS-origin from server side
+      .json({
         confirmation: "success",
         body: "Image is added to db",
       });
