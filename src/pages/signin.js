@@ -39,7 +39,7 @@ const Signin = () => {
       const accessToken = response?.data?.token;
       window.localStorage.setItem("auth-token", accessToken);
       setSuccess(true);
-      // Auth.login(accessToken)
+      Auth.login(accessToken)
 
     } catch (err) {
       if (!err?.response) {
@@ -104,7 +104,7 @@ const Signin = () => {
             Need an Account?
             <span className="line">
               {/*put router link here*/}
-              <a href="/"> Sign Up</a>
+              <a href="/register"> Sign Up</a>
             </span>
           </p>
         </section>

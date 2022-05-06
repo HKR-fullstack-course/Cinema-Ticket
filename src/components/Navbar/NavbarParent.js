@@ -1,5 +1,14 @@
 import React from "react";
 
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+  NavBtn,
+  NavBtnLink,
+} from "./NavbarElements";
+
 import Auth from "../../_helper/Auth";
 import Navbar from "./NavbarGuest";
 import NavbarUser from "./NavbarUser";

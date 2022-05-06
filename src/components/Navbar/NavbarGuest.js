@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React from "react";
 import {
   Nav,
   NavLink,
@@ -10,23 +10,6 @@ import {
 import { FaBars } from "react-icons/fa";
 
 const Navbar = (props, { toggle }) => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [isUser, setUser] = useState(false);
-  const [isAdmin, setAdmin] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("auth-token");
-
-    if (token) {
-      setAuthenticated(true);
-    } else if (!token) {
-      setAuthenticated(false);
-    }
-    return () => {};
-  });
-
-
-
   return (
     <>
       <Nav>
@@ -46,10 +29,8 @@ const Navbar = (props, { toggle }) => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/services">Services</NavLink>
         </NavMenu>
-        <NavBtn  onSubmit={props.onSubmit}>
-          
-
-          <NavBtnLink to="/signin" onSubmit={props.onSubmit} >
+        <NavBtn onSubmit={props.onSubmit}>
+          <NavBtnLink to="/signin" onSubmit={props.onSubmit}>
             Sign In
           </NavBtnLink>
         </NavBtn>
