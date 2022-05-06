@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const multer = require("multer");
 const fs = require("fs");
+const path = require("path");
 
 const Img = require("../model/Image");
 
@@ -25,7 +26,7 @@ router
 
     try {
       const new_img = new Img();
-      new_img.img.data = fs.readFileSync(req.file.path);
+      new_img.img.data = fs.readFileSync(path.resolve(req.file.path));
       new_img.img.contentType = "image/jpeg"; // or 'image/png'
       new_img.owner_id = req.body.owner_id;
       await new_img.save();
