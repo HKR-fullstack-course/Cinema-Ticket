@@ -33,6 +33,7 @@ router
       show_time: req.body.show_time,
       show_date: req.body.show_date,
       age_range: req.body.age_range,
+      image_url: req.body.image_url,
     });
 
     try {
@@ -120,7 +121,7 @@ router
     for (let k of data) {
       let time = k.show_time;
       let price = k.ticket_price;
-      returnedValue.push({  _id: k._id , ticket_price: price, show_time: time});
+      returnedValue.push({ _id: k._id, ticket_price: price, show_time: time });
     }
 
     res.json({
