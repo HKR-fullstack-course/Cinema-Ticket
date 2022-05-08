@@ -120,7 +120,7 @@ router
     for (let k of data) {
       let time = k.show_time;
       let price = k.ticket_price;
-      returnedValue.push({ ticket_price: price, show_time: time });
+      returnedValue.push({  _id: k._id , ticket_price: price, show_time: time});
     }
 
     res.json({
