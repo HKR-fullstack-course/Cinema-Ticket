@@ -25,6 +25,14 @@ const adminSchema = new mongoose.Schema({
     length: 10,
     min: 10,
   },
+  role: {
+    type: String,
+    default: "admin",
+  },
+  image_url: {
+    type: String,
+    default: "default",
+  },
   date: {
     type: Date,
     default: Date.now,

@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const moment = require("moment");
 
 const User = require("../model/User");
 const Admin = require("../model/Admin");
@@ -38,7 +37,7 @@ router.post("/login", async (req, res) => {
   if (admin) {
     validPassword = await bcrypt.compare(req.body.password, admin.password);
     role = admin;
-    role["admin"] = true;
+    // role["admin"] = true;
   }
   if (!validPassword) {
     return res.status(400).json({
@@ -48,12 +47,16 @@ router.post("/login", async (req, res) => {
 
   res.json({
     confirmation: "success",
-    token: jwt.sign({ role }, process.env.CLIENT_TOKEN),
+    token: jwt.sign(
+      { _id: role._id, role: role.role },
+      process.env.CLIENT_TOKEN
+    ),
     body: {
       _id: role._id,
       name: role.name,
       email: role.email,
       phonenumber: role.phonenumber,
+      image_url: role.image_url,
       age,
     },
   });

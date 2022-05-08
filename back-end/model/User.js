@@ -34,6 +34,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  image_url: {
+    type: String,
+    default: "default",
+  },
+  role: {
+    type: String,
+    default: "user",
+  },
   date: {
     type: Date,
     default: Date.now,
