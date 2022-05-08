@@ -64,13 +64,13 @@ router
   })
   // The follwoing fun in to test posting image from client side 
   .post("/test_image", upload.single("file"), async (req, res) => {
-    if (Object.keys(req.body).length === 0) {
-      res.status(400).json({
-        confirmation: "Fail",
-        body: "Invalid request",
-      });
-      return;
-    }
+    // if (Object.keys(req.body).length === 0) {
+    //   res.status(400).json({
+    //     confirmation: "Fail",
+    //     body: "Invalid request",
+    //   });
+    //   return;
+    // }
 
     try {
       const new_img = new Img();
