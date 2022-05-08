@@ -1,13 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import React from 'react'
-
+import { useState, useEffects } from "react";
+import api from "../api/api"
 
 const MoviePage = () => {
     const { name } = useParams()
     const [movie, setMove] = useState([])
     useEffects(() => {
-        const results = api.get(`/all/movie/${name}`)
+        const results = api.get(`/all_movie/${name}`)
         setMove(results)
     }
         , []);

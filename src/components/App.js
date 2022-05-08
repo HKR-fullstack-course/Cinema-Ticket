@@ -8,6 +8,7 @@ import Signin from "../pages/signin";
 import Services from "../pages/services";
 import Sidebar from "./Sidebar";
 import Parent_slide from "./Parent_Slide";
+import MoviePage from "./MoviePage";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
@@ -25,7 +26,9 @@ function App() {
         <Route path="/movies" element={<Movies />} />
         <Route path="/signin" element={<Signin />} />
         {/* //Movie slider  */}
-        <Route path="/movie/:name" element={<Parent_slide />} />
+
+        {/* //Page Slider  */}
+        <Route path="/movie/:name" element={<MoviePage />} />
       </Routes>
     </Router>
   );
