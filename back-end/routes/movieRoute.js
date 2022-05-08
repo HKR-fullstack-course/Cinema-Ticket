@@ -97,18 +97,46 @@ router
       });
     }
   })
-  .get("/movie", async (req, res) => {
-    const movies = await Movie.find();
-    const movie = {};
-    const data = movies.filter((item) => item.name == req.query.movie_name);
+  // .get("/movie", async (req, res) => {
+  //   const movies = await Movie.find();
+  //   const movie = {};
+  //   const data = movies.filter((item) => item.name == req.query.movie_name);
 
-    for (let obj of movies) {
-      if (obj.name.trim() == req.query.movie_name) {
-        movie[obj._id] = formatTime(obj.show_time, true);
-      }
+  //   for (let obj of movies) {
+  //     if (obj.name.trim() == req.query.movie_name) {
+  //       movie[obj._id] = formatTime(obj.show_time, true);
+  //     }
+  //   }
+
+  //   res.json({ confirmation: "seccuss", body: movie });
+  // })
+  .get("/movie/:_id", async (req, res) => {
+    const allMovies = await Movie.find();
+    const movieName = await Movie.findOne({ _id: req.params._id });
+    const data = allMovies.filter((item) => item.name >= movieName.name);
+
+    let returnedValue = [];
+
+    for (let k of data) {
+      let time = k.show_time;
+      let price = k.ticket_price;
+      returnedValue.push({ ticket_price: price, show_time: time });
     }
 
-    res.json({ confirmation: "seccuss", body: movie });
+    res.json({
+      confirmation: "success",
+      body: {
+        name: movieName.name,
+        movie_type: movieName.movie_type,
+        release_date: movieName.release_date,
+        director: movieName.director,
+        description: movieName.description,
+        rate: movieName.rate,
+        budget: movieName.budget,
+        main_actors: movieName.main_actors,
+        time: returnedValue,
+      },
+    });
   })
   .get("/all_movies/:movie_type", async (req, res) => {
     try {
