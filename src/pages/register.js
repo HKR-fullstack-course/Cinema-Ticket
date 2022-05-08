@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 
 import { validateRegister } from "./validate/validator";
 import api from "../api/api";
+import axios from "axios";
 
 const Register = () => {
   const errRef = useRef();
@@ -16,11 +17,47 @@ const Register = () => {
   const [confPwd, setConfPwd] = useState("");
   const [phone, setPhone] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [image, setImage] = useState("");
+  const [userImage, setUserImage] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-    console.log(image);
+  const [image, setImage] = useState("");
+  const [url, setURL] = useState("");
+  const [user_id, setUserID] = useState("");
+
+  const updateImageInDB = async () => {
+    try {
+      await api.update("", {
+        _id: user_id,
+        image: url + user_id,
+      });
+    } catch (error) {}
+  };
+
+  const updateUserAvatar = async () => {
+    const id = image ? image : "defaul";
+    try {
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+      formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+      formData.append("public_id", id);
+
+      // REACT_APP_CLOUD_NAME-var does not effect the security that much!
+      // the url of the image still includes the name of the cloud!
+      await fetch(
+        `https://api.cloudinary.com/v1_1/` +
+          process.env.REACT_APP_CLOUD_NAME +
+          `/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
+      console.log("uer ", url);
+    } catch (error) {}
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +76,8 @@ const Register = () => {
     }
 
     try {
-        const response = await api.post("/create_user", {
+      await api
+        .post("/create_user", {
           name: name,
           email: email,
           password: pwd,
@@ -47,22 +85,29 @@ const Register = () => {
           phonenumber: phone,
           birthdate: birthdate,
         })
-        
-        
-        // The following code is still broken due to CROS from
-        // server side
-        
-        // .then( (response)=>{
-            // const formData = new FormData();
-            // formData.append("owner_id", '123132');
-            // formData.append("file", image);
-            // const resImg = await api.post('/image', formData)
-        // })
-        .then( (response) => {
-            setSuccess(true);
-            console.log(response);
-        })
+        .then((response) => {
+          // setSuccess(true);
+          console.log(response);
+          setUserID(response.data.user_id);
+          console.log("id", response.data.user_id);
 
+          const userAvatarUrl = image ? response.data.user_id : "default";
+          setURL(
+            `https://res.cloudinary.com/` +
+              process.env.REACT_APP_CLOUD_NAME +
+              `/image/avatar/` +
+              userAvatarUrl
+          );
+        })
+        .then(() => {
+          if (image) {
+            updateUserAvatar();
+          }
+        })
+        .then(() => {
+          updateImageInDB();
+        });
+      console.log("url ", url);
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -79,15 +124,14 @@ const Register = () => {
   return (
     <>
       {success ? (
-        <Navigate replace to="/signin">
-        </Navigate>
+        <Navigate replace to="/signin"></Navigate>
       ) : (
         <section className="form-register-container">
           <h1 className="head-register">Register</h1>
           <form onSubmit={handleSubmit}>
             <div className="register-group">
               <label className="register-label" htmlFor="name">
-                Full Name:
+                Your Name* :
               </label>
               <input
                 type="text"
@@ -100,7 +144,7 @@ const Register = () => {
             </div>
             <div className="register-group">
               <label className="register-label" htmlFor="email">
-                Email:
+                Email* :
               </label>
               <input
                 type="text"
@@ -113,7 +157,7 @@ const Register = () => {
             </div>
             <div className="register-group">
               <label className="register-label" htmlFor="phonenumber">
-                Phone Number :
+                Phone Number* :
               </label>
               <input
                 type="text"
@@ -126,7 +170,7 @@ const Register = () => {
             </div>
             <div className="register-group">
               <label className="register-label" htmlFor="password">
-                Password:
+                Password* :
               </label>
               <input
                 type="password"
@@ -138,7 +182,7 @@ const Register = () => {
             </div>
             <div className="register-group">
               <label className="register-label" htmlFor="password">
-                Repeat Password:
+                Confirm Password* :
               </label>
               <input
                 type="password"
@@ -150,7 +194,7 @@ const Register = () => {
             </div>
             <div className="register-group">
               <label className="register-label" htmlFor="password">
-                Birthdate:{" "}
+                Birthdate* :{" "}
               </label>
               <input
                 type="date"
@@ -164,11 +208,11 @@ const Register = () => {
                 Profile Image:{" "}
               </label>
               <input
-                name="image"
+                name="file"
                 type="file"
                 className="register-input register-date"
                 onChange={(e) => setImage(e.target.files[0])}
-                // value={image}
+                multiple={false}
               />
             </div>
             <button className="login-btn">Register</button>
