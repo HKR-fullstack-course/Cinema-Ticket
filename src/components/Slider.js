@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import slider_style from "../style/Slider.css"
+import slider_style from "../style/Slider.module.css" //For some god forsaken reason it said not used but it is used in line 35
 
 import api from "../api/api";
 
@@ -32,7 +32,7 @@ export default class FilmSlider extends Component {
             autoPlay: true
         };
         return (
-            <div className="slider_style container">
+            <div className={slider_style.container}>
                 <h2> {this.props.title}</h2>
                 <Slider {...settings}>
                     {this.slider()}

@@ -7,7 +7,6 @@ import Movies from "../pages/movies";
 import Signin from "../pages/signin";
 import Services from "../pages/services";
 import Sidebar from "./Sidebar";
-import Parent_slide from "./Parent_Slide";
 import MoviePage from "./MoviePage";
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +27,7 @@ function App() {
         {/* //Movie slider  */}
 
         {/* //Page Slider  */}
-        <Route path="/movie/:name" element={<MoviePage />} />
+        <Route path="/movie/:_id" element={<MoviePage />} />
       </Routes>
     </Router>
   );
