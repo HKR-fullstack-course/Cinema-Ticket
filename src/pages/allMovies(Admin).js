@@ -1,4 +1,5 @@
 import "../style/table.css";
+
 import React from "react";
 import { Navigate } from "react-router-dom";
 
@@ -9,13 +10,13 @@ class Users extends React.Component {
   state = {
     offset: 0,
     data: [],
-    perPage: 15, // change this for table-pagination
+    perPage: 20, // change this for table-pagination
     currentPage: 0,
     response: [],
   };
 
   deleteUser = (user_id, name) => {
-    if (window.confirm(`Do you want to delete the user ${name} ?`)) {
+    if (window.confirm(`Do you want to delete the movie ${name} ?`)) {
         console.log(user_id);
     }
   };
@@ -29,7 +30,8 @@ class Users extends React.Component {
   }
 
   sendRequest = async () => {
-    const response = await api.get("all_users");
+    const response = await api.get("all_movies_table");
+
     this.setState({
       data: response.data.body.slice(
         this.state.offset,
@@ -74,9 +76,9 @@ class Users extends React.Component {
                 <tr>
                   <th className="table-url hide "></th>
                   <th className="table-name">Name</th>
-                  <th className="table-email">Email</th>
-                  <th className="table-phone re-hide">Phone number</th>
-                  <th className="table-nTicket hide">Number of Tickets</th>
+                  <th className="table-time re-hide">Show Time</th>
+                  <th className="table-price">Ticket Price</th>
+                  <th className="table-nTicket hide">Available Tickets</th>
                   <th className="table-btn"></th>
                 </tr>
               </thead>
@@ -88,11 +90,11 @@ class Users extends React.Component {
                         <img className="img" src={item.url} />
                       </td>
                       <td className="table-name">{item.name}</td>
-                      <td className="table-email">{item.email}</td>
                       <td className="table-phone re-hide">
-                        {item.phonenumber}
+                        {item.show_time}
                       </td>
-                      <td className="table-nTicket hide">{item.n_tickets}</td>
+                      <td className="table-email table-price">{item.ticket_price}</td>
+                      <td className="table-nTicket hide">{item.age_range}</td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"
