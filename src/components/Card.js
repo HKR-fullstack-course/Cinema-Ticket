@@ -38,7 +38,7 @@ class Card extends Component {
   render() {
     return (
 
-      <Link to={"/movie/" + this.props.name}>
+      <Link to={"/movie/" + this.props._id}>
         <div class="style.card card-1">
           <div class="style.card card-top "><Image image={this.state.image} alt={this.props.name} />
           </div>
