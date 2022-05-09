@@ -17,7 +17,6 @@ const Register = () => {
   const [confPwd, setConfPwd] = useState("");
   const [phone, setPhone] = useState("");
   const [birthdate, setBirthdate] = useState("");
-  const [userImage, setUserImage] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
@@ -34,46 +33,55 @@ const Register = () => {
     } catch (error) {}
   };
 
-  const updateUserAvatar = async () => {
-    const id = image ? image : "defaul";
-    try {
-      const formData = new FormData();
-      formData.append("file", image);
-      formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-      formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-      formData.append("public_id", id);
+  // const updateUserAvatar = async () => {
+  //   // const userAvatarUrl = image ? user_id : "default";
+  //   // setURL(
+  //   //   `https://res.cloudinary.com/` +
+  //   //     process.env.REACT_APP_CLOUD_NAME +
+  //   //     `/image/avatar/` +
+  //   //     userAvatarUrl
+  //   // );
 
-      // REACT_APP_CLOUD_NAME-var does not effect the security that much!
-      // the url of the image still includes the name of the cloud!
-      await fetch(
-        `https://api.cloudinary.com/v1_1/` +
-          process.env.REACT_APP_CLOUD_NAME +
-          `/image/upload`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+  //   const id = image && user_id ? user_id : "default";
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("file", image);
+  //     formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+  //     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+  //     formData.append("public_id", user_id || "defaul");
 
-      console.log("uer ", url);
-    } catch (error) {}
-  };
+  //     // REACT_APP_CLOUD_NAME-var does not effect the security that much!
+  //     // the url of the image still includes the name of the cloud!
+  //     const x = await fetch(
+  //       `https://api.cloudinary.com/v1_1/` +
+  //         process.env.REACT_APP_CLOUD_NAME +
+  //         `/image/upload`,
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     );
+
+  //     console.log("x ", x);
+  //     console.log("uer ", url);
+  //   } catch (error) {}
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { error } = validateRegister({
-      name,
-      email,
-      pwd,
-      confPwd,
-      phone,
-      birthdate,
-    });
-    if (error) {
-      const er = error.details[0].message.slice(1, -1);
-      setErrMsg(er.slice(0, er.indexOf('"')));
-      return;
-    }
+    // const { error } = validateRegister({
+    //   name,
+    //   email,
+    //   pwd,
+    //   confPwd,
+    //   phone,
+    //   birthdate,
+    // });
+    // if (error) {
+    //   const er = error.details[0].message.slice(1, -1);
+    //   setErrMsg(er.slice(0, er.indexOf('"')));
+    //   return;
+    // }
 
     try {
       await api
@@ -84,30 +92,31 @@ const Register = () => {
           repeat_password: confPwd,
           phonenumber: phone,
           birthdate: birthdate,
-        })
-        .then((response) => {
-          // setSuccess(true);
-          console.log(response);
-          setUserID(response.data.user_id);
-          console.log("id", response.data.user_id);
-
-          const userAvatarUrl = image ? response.data.user_id : "default";
-          setURL(
+          image_url:
             `https://res.cloudinary.com/` +
-              process.env.REACT_APP_CLOUD_NAME +
-              `/image/avatar/` +
-              userAvatarUrl
-          );
+            process.env.REACT_APP_CLOUD_NAME +
+            `/image/avatar/default`,
         })
-        .then(() => {
+
+        .then((res) => {
           if (image) {
-            updateUserAvatar();
+            const formData = new FormData();
+            formData.append("file", image);
+            formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+            formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+            formData.append("public_id", res.data.user_id);
+
+            const x = fetch(
+              `https://api.cloudinary.com/v1_1/` +
+                process.env.REACT_APP_CLOUD_NAME +
+                `/image/upload`,
+              {
+                method: "POST",
+                body: formData,
+              }
+            );
           }
-        })
-        .then(() => {
-          updateImageInDB();
         });
-      console.log("url ", url);
     } catch (err) {
       if (!err?.response) {
         setErrMsg("No Server Response");
