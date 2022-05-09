@@ -36,6 +36,7 @@ router
       password: hashPassword,
       phonenumber: req.body.phonenumber,
       birthdate: req.body.birthdate,
+      image_url: req.body.image_url,
     });
 
     try {
@@ -75,6 +76,7 @@ router
       user.password = hashPassword;
       user.email = req.body.email || user.email;
       user.phonenumber = req.body.phonenumber || user.phonenumber;
+      user.image_url = req.body.image_url || user.image_url;
 
       await user.save();
       res.status(201).json({

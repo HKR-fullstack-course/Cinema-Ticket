@@ -1,3 +1,5 @@
+require("dotenv/config");
+
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
@@ -36,7 +38,7 @@ const userSchema = new mongoose.Schema({
   },
   image_url: {
     type: String,
-    default: "default",
+    default: `https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/v1652046733/image/avatar/default.jpg`,
   },
   role: {
     type: String,

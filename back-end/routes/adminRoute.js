@@ -34,6 +34,7 @@ router.post("/create_admin", async (req, res) => {
     email: req.body.email,
     password: hashPassword,
     phonenumber: req.body.phonenumber,
+    image_url: req.body.image_url,
   });
 
   try {
