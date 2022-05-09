@@ -34,7 +34,13 @@
 }
 
 .table-url {
-  width: 15%;
+  width: 10%;
+}
+.img {
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15%;
 }
 
 .table-name {
@@ -56,11 +62,25 @@
 }
 
 .delete-btn {
-  width: 90%;
-  height: 2rem;
+  width: 7vh;
+  height: 4vh;
   justify-content: center;
-
   margin: auto;
+  background: rgb(67, 98, 249);
+  border-radius: 10px;
+  color: #f3f3f3;
+}
+
+.arrow-container {
+    width: 100%;
+    display: flex;
+
+}
+
+.arraow {
+  align-items: center;
+  width: 14vh;
+  height: 5vh;
 }
 
 @media screen and (max-width: 1000px) {
@@ -72,15 +92,28 @@
 @media screen and (max-width: 800px) {
   .table-container {
     width: 100%;
+    border: none;
   }
 }
 
 @media screen and (max-width: 670px) {
-  .table-container {
-    width: 100%;
+  .hide {
+    display: none;
   }
 
-  .hide {
+  .arraow {
+    width: 10vh;
+    height: 4.5vh;
+  }
+
+}
+
+@media screen and (max-width: 550px) {
+  .table-container {
+    border: none;
+  }
+
+  .re-hide {
     display: none;
   }
 }
