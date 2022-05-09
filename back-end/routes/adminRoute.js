@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../model/User");
 const Admin = require("../model/Admin");
+const Movies = require("../model/Movie");
 
 const { userRegisterValidation } = require("../validation/user");
 
@@ -67,6 +68,37 @@ router
         phonenumber: user.phonenumber,
         url: user.image_url,
         n_tickets: user.number_of_tickets,
+      };
+    });
+
+    try {
+      res.json({
+        confirmation: "seccuss",
+        body,
+      });
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  })
+  .get("/all_movies_table", async (req, res) => {
+    const movies = await Movies.find({});
+
+    if (!movies) {
+      return res.status(204).json({
+        confirmation: "seccuss",
+        body: "There is not movies to show",
+      });
+    }
+
+    const body = movies.map((movie) => {
+      return {
+        _id: movie._id,
+        name: movie.name,
+        ticket_price: movie.ticket_price,
+        age_range: movie.age_range,
+        show_time: movie.show_time,
+        url: movie.image_url,
+        number_of_seats: movie.number_of_seats,
       };
     });
 

@@ -58,6 +58,9 @@ const movieSchema = new mongoose.Schema({
     type: String,
     default: "default",
   },
+  number_of_seats: {
+    type: Number,
+  },
   date: {
     type: Date,
     default: Date.now,
