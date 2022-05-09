@@ -6,7 +6,6 @@ import { Navigate } from "react-router-dom";
 
 import { validateRegister } from "./validate/validator";
 import api from "../api/api";
-import axios from "axios";
 
 const Register = () => {
   const errRef = useRef();
@@ -19,6 +18,9 @@ const Register = () => {
   const [birthdate, setBirthdate] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+
+
+
 
   const [image, setImage] = useState("");
   const [user_id, setUserID] = useState("");
@@ -38,55 +40,22 @@ const Register = () => {
     }
   };
 
-  // const updateUserAvatar = async () => {
-  //   // const userAvatarUrl = image ? user_id : "default";
-  //   // setURL(
-  //   //   `https://res.cloudinary.com/` +
-  //   //     process.env.REACT_APP_CLOUD_NAME +
-  //   //     `/image/avatar/` +
-  //   //     userAvatarUrl
-  //   // );
-
-  //   const id = image && user_id ? user_id : "default";
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append("file", image);
-  //     formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-  //     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-  //     formData.append("public_id", user_id || "defaul");
-
-  //     // REACT_APP_CLOUD_NAME-var does not effect the security that much!
-  //     // the url of the image still includes the name of the cloud!
-  //     const x = await fetch(
-  //       `https://api.cloudinary.com/v1_1/` +
-  //         process.env.REACT_APP_CLOUD_NAME +
-  //         `/image/upload`,
-  //       {
-  //         method: "POST",
-  //         body: formData,
-  //       }
-  //     );
-
-  //     console.log("x ", x);
-  //     console.log("uer ", url);
-  //   } catch (error) {}
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const { error } = validateRegister({
-    //   name,
-    //   email,
-    //   pwd,
-    //   confPwd,
-    //   phone,
-    //   birthdate,
-    // });
-    // if (error) {
-    //   const er = error.details[0].message.slice(1, -1);
-    //   setErrMsg(er.slice(0, er.indexOf('"')));
-    //   return;
-    // }
+    const { error } = validateRegister({
+      name,
+      email,
+      pwd,
+      confPwd,
+      phone,
+      birthdate,
+    });
+    if (error) {
+      const er = error.details[0].message.slice(1, -1);
+      setErrMsg(er.slice(0, er.indexOf('"')));
+      return;
+    }
 
     try {
       await api
@@ -102,41 +71,44 @@ const Register = () => {
             process.env.REACT_APP_CLOUD_NAME +
             `/image/avatar/default`,
         })
-
-        .then(async (res) => {
-          setUserID(res.data.user_id);
-          let reqImg;
-          if (image) {
-            const formData = new FormData();
-            formData.append("file", image);
-            formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-            formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-            formData.append("public_id", res.data.user_id);
-
-            reqImg = await fetch(
-              `https://api.cloudinary.com/v1_1/` +
-                process.env.REACT_APP_CLOUD_NAME +
-                `/image/upload`,
-              {
-                method: "POST",
-                body: formData,
-              }
-            );
-            // console.log(x.value);
-            // console.log(x.json());
-          }
-          // console.log("id > " ,user_id);
-          return reqImg.json();
-        })
-        .then(async (value) => {
-          // console.log(value.secure_url);
-          // updateImageInDB(value.secure_url);
-
-          await api.put("/update_user", {
-            _id: user_id,
-            image_url: value.secure_url,
-          });
+        .then(() => {
+          setSuccess(true);
         });
+
+      // .then(async (res) => {
+      //   setUserID(res.data.user_id);
+      //   let reqImg;
+      //   if (image) {
+      //     const formData = new FormData();
+      //     formData.append("file", image);
+      //     formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+      //     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+      //     formData.append("public_id", res.data.user_id);
+
+      //     reqImg = await fetch(
+      //       `https://api.cloudinary.com/v1_1/` +
+      //         process.env.REACT_APP_CLOUD_NAME +
+      //         `/image/upload`,
+      //       {
+      //         method: "POST",
+      //         body: formData,
+      //       }
+      //     );
+      //     // console.log(x.value);
+      //     // console.log(x.json());
+      //   }
+      //   console.log("id > " ,user_id);
+      //   return reqImg.json();
+      // })
+      // .then(async (value) => {
+      //   // console.log(value.secure_url);
+      //   // updateImageInDB(value.secure_url);
+
+      //   await api.put("/update_user", {
+      //     _id: user_id,
+      //     image_url: value.secure_url,
+      //   });
+      // });
 
       // .then(data => {
       //   console.log(data);
@@ -237,7 +209,7 @@ const Register = () => {
                 value={birthdate}
               />
             </div>
-            <div className="register-group">
+            {/* <div className="register-group">
               <label className="register-label" htmlFor="image">
                 Profile Image:{" "}
               </label>
@@ -248,7 +220,7 @@ const Register = () => {
                 onChange={(e) => setImage(e.target.files[0])}
                 multiple={false}
               />
-            </div>
+            </div> */}
             <button className="login-btn">Register</button>
           </form>
           <p

@@ -12,6 +12,7 @@ import Signin from "../pages/signin";
 import Register from "../pages/register";
 import ErrorPage from '../pages/ErrorPage'
 import Services from "../pages/services";
+import Users from "../pages/users";
 
 export const AuthContext = React.createContext();
 
@@ -36,6 +37,7 @@ const App = () => {
         <Route exact path="/movies" element={<Movies />} />
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/register" element={<Register />} />
+        <Route exact path="/users" element={<Users />} />
         {/* //Movie slider  */}
         <Route exact path="/movie/:name" element={<Parent_slide />} />
 
