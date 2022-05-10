@@ -30,6 +30,7 @@ const NavbarAdmin = (props, { toggle }) => {
           <NavLink to="/about">About</NavLink>
           <NavLink to="/users">Users</NavLink>
           <NavLink to="/create_admin">Create Admin Account</NavLink>
+          <NavLink to="/all_movies">Table Of Movies</NavLink>
         </NavMenu>
         <NavBtn>
           <NavBtnLink replace to="/" onClick={props.logout}>

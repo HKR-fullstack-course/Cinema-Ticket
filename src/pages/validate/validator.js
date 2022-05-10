@@ -27,3 +27,12 @@ export const validateRegister = (data) => {
   });
   return schema.validate(data);
 };
+
+export const validateLogin = (data) => {
+  const schema = Joi.object({
+    email: Joi.string()
+      .email({ tlds: { allow: false } })
+      .label("Check Entered Email"),
+  });
+  return schema.validate(data);
+};

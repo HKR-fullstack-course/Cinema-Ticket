@@ -64,7 +64,7 @@ class Users extends React.Component {
 
   render() {
     return (
-      <>
+    <>
         <div className="table-container">
           {!Auth.isAuthenticated || !Auth.isAdmin ? (
             <Navigate replace to="/404"></Navigate>
