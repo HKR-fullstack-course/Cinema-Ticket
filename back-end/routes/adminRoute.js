@@ -110,6 +110,27 @@ router
     } catch (error) {
       res.status(400).json(error);
     }
+  })
+  .delete("/delete_user_account", async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete({ _id: req.body._id });
+
+      if (!user) {
+        return res.status(400).json({
+          error: "Fail to Find the User",
+        });
+      }
+
+      res.status(201).json({
+        confirmation: "success",
+        body: "User account is deleted",
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: "Error occue while deleting",
+      });
+    }
   });
 
 module.exports = router;

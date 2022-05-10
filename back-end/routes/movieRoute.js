@@ -30,6 +30,7 @@ router
       budget: req.body.budget,
       main_actors: req.body.main_actors,
       ticket_price: req.body.ticket_price,
+      number_of_seats: req.body.number_of_seats,
       show_time: req.body.show_time,
       show_date: req.body.show_date,
       age_range: req.body.age_range,
@@ -157,6 +158,50 @@ router
       res.status(404).json({
         confirmation: "fail",
         body: error.message,
+      });
+    }
+  })
+  .put("/update_movie_image", async (req, res) => {
+    const movie = await Movie.findOne({ _id: req.body._id });
+
+    if (!movie) {
+      return res.status(400).json({
+        error: "Fail to Find the Movie",
+      });
+    }
+
+    try {
+      movie.image_url = req.body.url || movie.image_url;
+      await movie.save();
+      res.status(201).json({
+        confirmation: "success",
+        body: "Movie's Image is updated",
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: "Error occue while updating",
+      });
+    }
+  })
+  .delete("/delete_movie", async (req, res) => {
+    try {
+      const movie = await Movie.findByIdAndDelete({ _id: req.body._id });
+
+      if (!movie) {
+        return res.status(400).json({
+          error: "Fail to Find the Movie",
+        });
+      }
+
+      res.status(201).json({
+        confirmation: "success",
+        body: "The Movie is deleted",
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: "Error occue while deleting",
       });
     }
   });
