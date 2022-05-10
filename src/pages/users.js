@@ -12,21 +12,24 @@ class Users extends React.Component {
     perPage: 15, // change this for table-pagination
     currentPage: 0,
     response: [],
+    deleted: false,
   };
 
-  deleteUser = (user_id, name) => {
-    if (window.confirm(`Do you want to delete the user ${name} ?`)) {
-        console.log(user_id);
-    }
-  };
-
-  componentDidMount() {
-    // this.sendRequest();
-  }
-
-  componentWillUnmount() {
+  constructor(props) {
+    super(props);
     this.sendRequest();
   }
+
+  deleteUser = async (user_id, name) => {
+    if (window.confirm(`Do you want to delete the user ${name} ?`)) {
+      await api.delete("/delete_user_account", {
+        data: { _id: user_id },
+      });
+
+      // forceUpdate()   <= this method doesn't work for a reason!
+      window.location.reload();
+    }
+  };
 
   sendRequest = async () => {
     const response = await api.get("all_users");
@@ -64,7 +67,7 @@ class Users extends React.Component {
 
   render() {
     return (
-    <>
+      <>
         <div className="table-container">
           {!Auth.isAuthenticated || !Auth.isAdmin ? (
             <Navigate replace to="/404"></Navigate>
