@@ -13,7 +13,7 @@ const Navbar = ({toggle}) => {
     <>
       <Nav>
         <NavLink to='/'>
-          <img src={require('../../images/logo.png')} alt='logo' width="110px" height="80px" />
+          <img src={require('../../images/logo.png')} alt='logo' width="350px" height="70px"  />
         </NavLink>
         <Bars onClick={toggle}>
           <FaBars/>

@@ -6,6 +6,7 @@ import About from "../pages/about";
 import Movies from "../pages/movies";
 import Signin from "../pages/signin";
 import Services from "../pages/services";
+import AddMovie from "../pages/addMovie";
 import Sidebar from "./Sidebar";
 import Parent_slide from "./Parent_Slide";
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/movies" element={<Movies />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/addmovie" element={<AddMovie />} />
         {/* //Movie slider  */}
         <Route path="/movie/:name" element={<Parent_slide />} />
       </Routes>

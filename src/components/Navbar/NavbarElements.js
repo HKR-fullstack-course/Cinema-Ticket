@@ -21,7 +21,6 @@ export const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-
   &.active {
     color: #15cdfc;
   }
@@ -85,7 +84,7 @@ export const NavBtnLink = styled(Link)`
   text-decoration: none;
 
   /* Second Nav */
-  margin-left: 24px;
+  margin-left: 100px;
 
   &:hover {
     transition: all 0.2s ease-in-out;
