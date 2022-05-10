@@ -1,0 +1,130 @@
+.table-container {
+  border: 2px solid black;
+  width: 70%;
+
+  margin: 70px auto;
+}
+
+.styled-table thead tr {
+  background-color: #c70039;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+.table-url {
+  width: 10%;
+}
+.img {
+  width: 60%;
+  align-items: center;
+  justify-content: center;
+  margin-left: 15%;
+}
+
+.table-name {
+  width: 20%;
+}
+.table-email {
+  width: 22%;
+}
+.table-phone {
+  width: 15%;
+}
+
+.table-time {
+  width: 30%;
+
+}
+
+.table-price{
+    width: 10%;
+    text-align: center;
+}
+
+
+.table-nTicket {
+  width: 8%;
+  text-align: center;
+}
+.table-btn {
+  width: 10%;
+}
+
+.delete-btn {
+  width: 7vh;
+  height: 4vh;
+  justify-content: center;
+  margin: auto;
+  background: rgb(67, 98, 249);
+  border-radius: 10px;
+  color: #f3f3f3;
+}
+
+.arrow-container {
+    width: 100%;
+    display: flex;
+    margin-bottom: 100px;
+}
+
+.arraow {
+  align-items: center;
+  width: 14vh;
+  height: 5vh;
+}
+
+@media screen and (max-width: 1000px) {
+  .table-container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .table-container {
+    width: 100%;
+    border: none;
+  }
+}
+
+@media screen and (max-width: 670px) {
+  .hide {
+    display: none;
+  }
+
+  .arraow {
+    width: 10vh;
+    height: 4.5vh;
+  }
+
+}
+
+@media screen and (max-width: 550px) {
+  .table-container {
+    border: none;
+  }
+
+  .re-hide {
+    display: none;
+  }
+}
