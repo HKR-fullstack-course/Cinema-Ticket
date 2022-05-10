@@ -41,8 +41,11 @@ const App = () => {
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/users" element={<Users />} />
         <Route exact path="/all_movies" element={<AllMovies />} />
+        <Route path="/movie/:name" element={<Parent_slide />} />
+
         {/* //Movie slider  */}
-        <Route exact path="/movie/:_id" element={<Parent_slide />} />
+        <Route path="/add_movie" element={<AddMovie />} />
+        <Route exact path="/movie/:_id" element={<MoviePage />} />
 
         <Route path="*" element={<ErrorPage />} />
       </Routes>
