@@ -1,33 +1,29 @@
 import "../style/register.css";
 
 import React from "react";
-import { useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
 
 import { validateRegister } from "./validate/validator";
 import api from "../api/api";
 
-const Register = () => {
-  const errRef = useRef();
+class Register extends React.Component {
+  state = {
+    success: false,
+    _id: "",
+    name: "",
+    email: "",
+    pwd: "",
+    confPwd: "",
+    phone: "",
+    birthdate: "",
+    image_url: "",
+    image: "",
+    errMsg: "",
+  };
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const [confPwd, setConfPwd] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthdate, setBirthdate] = useState("");
-  const [errMsg, setErrMsg] = useState("");
-  const [success, setSuccess] = useState(false);
-
-
-
-
-  const [image, setImage] = useState("");
-  const [user_id, setUserID] = useState("");
-
-  const updateImageInDB = async (url) => {
+  updateImageInDB = async (url) => {
     console.log("url : ", url);
-    console.log("id > ", user_id);
+    console.log("id > ", this.state._id);
     if (url) {
       try {
         await api.put("/update_user", {
@@ -40,206 +36,208 @@ const Register = () => {
     }
   };
 
+  postUser = async (body) => {
+    const res = await api.post("/create_user", body);
+    return res;
+  };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const { error } = validateRegister({
-      name,
-      email,
-      pwd,
-      confPwd,
-      phone,
-      birthdate,
+  postImage = async (id) => {
+    const formData = new FormData();
+    formData.append("file", this.state.image);
+    formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+    formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+    formData.append("public_id", id);
+
+    const res = await fetch(
+      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    return res.json();
+  };
+
+  updateUserAvatar = async (id, url) => {
+    const res = await api.put("/update_user", {
+      user_id: id,
+      password: this.state.pwd,
+      image_url: url,
     });
+    return res;
+  };
+
+  onImageChange = (e) => {
+    this.setState({ image: e.target.files[0] });
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { error } = validateRegister({
+      name: this.state.name,
+      email: this.state.email,
+      pwd: this.state.pwd,
+      confPwd: this.state.confPwd,
+      phone: this.state.phone,
+      birthdate: this.state.birthdate,
+    });
+
     if (error) {
       const er = error.details[0].message.slice(1, -1);
-      setErrMsg(er.slice(0, er.indexOf('"')));
+      this.setState({ errMsg: er.slice(0, er.indexOf('"')) });
       return;
     }
 
     try {
-      await api
-        .post("/create_user", {
-          name: name,
-          email: email,
-          password: pwd,
-          repeat_password: confPwd,
-          phonenumber: phone,
-          birthdate: birthdate,
-          image_url:
-            `https://res.cloudinary.com/` +
-            process.env.REACT_APP_CLOUD_NAME +
-            `/image/avatar/default`,
-        })
-        .then(() => {
-          setSuccess(true);
-        });
+      
+      const body = {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.pwd,
+        phonenumber: this.state.phone,
+        birthdate: this.state.birthdate,
+        image_url:
+          `https://res.cloudinary.com/` +
+          process.env.REACT_APP_CLOUD_NAME +
+          `/image/upload/v1652046733/image/avatar/default`,
+      };
 
-      // .then(async (res) => {
-      //   setUserID(res.data.user_id);
-      //   let reqImg;
-      //   if (image) {
-      //     const formData = new FormData();
-      //     formData.append("file", image);
-      //     formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-      //     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-      //     formData.append("public_id", res.data.user_id);
+      const resp = await this.postUser(body);
+      if (this.state.image) {
+        const response = await this.postImage(resp.data.user_id);
+        const res = await this.updateUserAvatar(
+          resp.data.user_id,
+          response.secure_url
+        );
+      }
 
-      //     reqImg = await fetch(
-      //       `https://api.cloudinary.com/v1_1/` +
-      //         process.env.REACT_APP_CLOUD_NAME +
-      //         `/image/upload`,
-      //       {
-      //         method: "POST",
-      //         body: formData,
-      //       }
-      //     );
-      //     // console.log(x.value);
-      //     // console.log(x.json());
-      //   }
-      //   console.log("id > " ,user_id);
-      //   return reqImg.json();
-      // })
-      // .then(async (value) => {
-      //   // console.log(value.secure_url);
-      //   // updateImageInDB(value.secure_url);
-
-      //   await api.put("/update_user", {
-      //     _id: user_id,
-      //     image_url: value.secure_url,
-      //   });
-      // });
-
-      // .then(data => {
-      //   console.log(data);
-      //   console.log(data.json());
-      // })
+      this.setState({ success: resp.status === 200 ? true : false });
     } catch (err) {
       if (!err?.response) {
-        setErrMsg("No Server Response");
-      } else if (err.response?.status === 400) {
-        setErrMsg("Email exists!");
+        this.setState({ errMsg: "No Server Response" });
       } else if (err.response?.status === 401) {
-        setErrMsg("Unauthorized");
+        this.setState({ errMsg: "No Server Response" });
       } else {
-        setErrMsg("Login Failed");
+        this.setState({ errMsg: "Registration Failed" });
       }
     }
   };
 
-  return (
-    <>
-      {success ? (
-        <Navigate replace to="/signin"></Navigate>
-      ) : (
-        <section className="form-register-container">
-          <h1 className="head-register">Register</h1>
-          <form onSubmit={handleSubmit}>
-            <div className="register-group">
-              <label className="register-label" htmlFor="name">
-                Your Name* :
-              </label>
-              <input
-                type="text"
-                className="register-input"
-                placeholder=" Your Name"
-                autoComplete="off"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-            </div>
-            <div className="register-group">
-              <label className="register-label" htmlFor="email">
-                Email* :
-              </label>
-              <input
-                type="text"
-                className="register-input"
-                placeholder=" example@example.com"
-                autoComplete="off"
-                onChange={(e) => setEmail(e.target.value)}
-                value={email}
-              />
-            </div>
-            <div className="register-group">
-              <label className="register-label" htmlFor="phonenumber">
-                Phone Number* :
-              </label>
-              <input
-                type="text"
-                className="register-input"
-                placeholder=" 070 000 0000"
-                autoComplete="off"
-                onChange={(e) => setPhone(e.target.value)}
-                value={phone}
-              />
-            </div>
-            <div className="register-group">
-              <label className="register-label" htmlFor="password">
-                Password* :
-              </label>
-              <input
-                type="password"
-                className="register-input"
-                placeholder=" Password"
-                onChange={(e) => setPwd(e.target.value)}
-                value={pwd}
-              />
-            </div>
-            <div className="register-group">
-              <label className="register-label" htmlFor="password">
-                Confirm Password* :
-              </label>
-              <input
-                type="password"
-                className="register-input"
-                placeholder=" Confirm Password"
-                onChange={(e) => setConfPwd(e.target.value)}
-                value={confPwd}
-              />
-            </div>
-            <div className="register-group">
-              <label className="register-label" htmlFor="password">
-                Birthdate* :{" "}
-              </label>
-              <input
-                type="date"
-                className="register-input register-date"
-                onChange={(e) => setBirthdate(e.target.value)}
-                value={birthdate}
-              />
-            </div>
-            {/* <div className="register-group">
-              <label className="register-label" htmlFor="image">
-                Profile Image:{" "}
-              </label>
-              <input
-                name="file"
-                type="file"
-                className="register-input register-date"
-                onChange={(e) => setImage(e.target.files[0])}
-                multiple={false}
-              />
-            </div> */}
-            <button className="login-btn">Register</button>
-          </form>
-          <p
-            ref={errRef}
-            className={errMsg ? "errmsg" : "offscreen"}
-            aria-live="assertive"
-          >
-            {errMsg}
-          </p>
-          <p className="singup-label">
-            Have an Account?
-            <span className="line">
-              <a href="/signin"> Sign In</a>
-            </span>
-          </p>
-        </section>
-      )}
-    </>
-  );
-};
+  render = () => {
+    return (
+      <>
+        {this.state.success ? (
+          <Navigate replace to="/signin"></Navigate>
+        ) : (
+          <section className="form-register-container">
+            <h1 className="head-register">Register</h1>
+            <form onSubmit={this.handleSubmit}>
+              <div className="register-group">
+                <label className="register-label" htmlFor="name">
+                  Your Name* :
+                </label>
+                <input
+                  type="text"
+                  className="register-input"
+                  placeholder=" Your Name"
+                  autoComplete="off"
+                  onChange={(e) => this.setState({ name: e.target.value })}
+                  value={this.state.name}
+                />
+              </div>
+              <div className="register-group">
+                <label className="register-label" htmlFor="email">
+                  Email* :
+                </label>
+                <input
+                  type="text"
+                  className="register-input"
+                  placeholder=" example@example.com"
+                  autoComplete="off"
+                  onChange={(e) => this.setState({ email: e.target.value })}
+                  value={this.state.email}
+                />
+              </div>
+              <div className="register-group">
+                <label className="register-label" htmlFor="phonenumber">
+                  Phone Number* :
+                </label>
+                <input
+                  type="text"
+                  className="register-input"
+                  placeholder=" 070 000 0000"
+                  autoComplete="off"
+                  onChange={(e) => this.setState({ phone: e.target.value })}
+                  value={this.state.phone}
+                />
+              </div>
+              <div className="register-group">
+                <label className="register-label" htmlFor="password">
+                  Password* :
+                </label>
+                <input
+                  type="password"
+                  className="register-input"
+                  placeholder=" Password"
+                  onChange={(e) => this.setState({ pwd: e.target.value })}
+                  value={this.state.pwd}
+                />
+              </div>
+              <div className="register-group">
+                <label className="register-label" htmlFor="password">
+                  Confirm Password* :
+                </label>
+                <input
+                  type="password"
+                  className="register-input"
+                  placeholder=" Confirm Password"
+                  onChange={(e) => this.setState({ confPwd: e.target.value })}
+                  value={this.state.confPwd}
+                />
+              </div>
+              <div className="register-group">
+                <label className="register-label" htmlFor="password">
+                  Birthdate* :
+                </label>
+                <input
+                  type="date"
+                  className="register-input register-date"
+                  onChange={(e) => this.setState({ birthdate: e.target.value })}
+                  value={this.state.birthdate}
+                />
+              </div>
+              <div className="register-group">
+                <label className="register-label" htmlFor="image">
+                  Profile Image:{" "}
+                </label>
+                <input
+                  name="file"
+                  type="file"
+                  className="register-input register-date"
+                  onChange={this.onImageChange}
+                  multiple={false}
+                />
+              </div>
+              <button className="login-btn">Register</button>
+            </form>
+            <p
+              className={this.state.errMsg.length ? "errmsg" : "offscreen"}
+              aria-live="assertive"
+            >
+              {this.state.errMsg}
+            </p>
+            <p className="singup-label">
+              Have an Account?
+              <span className="line">
+                <a href="/signin"> Sign In</a>
+              </span>
+            </p>
+          </section>
+        )}
+      </>
+    );
+  };
+}
 
 export default Register;
