@@ -44,7 +44,7 @@ const App = () => {
         <Route path="/movie/:name" element={<Parent_slide />} />
 
         {/* //Movie slider  */}
-        <Route path="/add_movie" element={<AddMovie />} />
+        <Route exact path="/add_movie" element={<AddMovie />} />
         <Route exact path="/movie/:_id" element={<MoviePage />} />
 
         <Route path="*" element={<ErrorPage />} />
