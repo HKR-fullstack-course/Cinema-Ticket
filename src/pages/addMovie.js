@@ -5,7 +5,7 @@ import React from "react";
 import api from "../api/api";
 import { postImage } from "../api/postImage";
 
-class addMovie extends React.Component {
+class AddMovie extends React.Component {
   state = {
     _id: "",
     title: "",
@@ -22,7 +22,7 @@ class addMovie extends React.Component {
     rate: 0,
     min_age: 7,
     ticket_price: "",
-    number_of_seats: 20,
+    number_of_seats: 150,
     synopsis: "",
   };
 
@@ -35,23 +35,22 @@ class addMovie extends React.Component {
     return res;
   };
 
-//   postImage = async (id) => {
-//     const formData = new FormData();
-//     formData.append("file", this.state.image);
-//     formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-//     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-//     formData.append("public_id", id);
+  //   postImage = async (id) => {
+  //     const formData = new FormData();
+  //     formData.append("file", this.state.image);
+  //     formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+  //     formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+  //     formData.append("public_id", id);
 
-//     const res = await fetch(
-//       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
-//       {
-//         method: "POST",
-//         body: formData,
-//       }
-//     );
-//     return res.json();
-//   };
-
+  //     const res = await fetch(
+  //       `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     );
+  //     return res.json();
+  //   };
 
   updateMoviePoster = async (id, url) => {
     const res = await api.put("/update_movie_image", {
@@ -79,6 +78,7 @@ class addMovie extends React.Component {
         rate: this.state.rate,
         age_range: this.state.min_age,
         description: this.state.synopsis,
+        number_of_seats: this.state.number_of_seats,
         ticket_price: this.state.ticket_price,
       };
 
@@ -254,31 +254,6 @@ class addMovie extends React.Component {
                   <option value="Epic">Epic</option>
                   <option value="History">History</option>
                 </select>
-                {/* <input
-                  type="number"
-                  min="3"
-                  max="18"
-                  placeholder="3"
-                  className="form-input"
-                /> */}
-                {/* <div>
-                  <label>
-                    <input type="checkbox" value="Web" />
-                    Comedy
-                  </label>
-                  <label>
-                    <input type="checkbox" value="iOS" />
-                    Action
-                  </label>
-                  <label>
-                    <input type="checkbox" value="Andriod" />
-                    Musical
-                  </label>
-                  <label>
-                    <input type="checkbox" value="Game" />
-                    Other
-                  </label>
-                </div> */}
               </div>
             </div>
 
@@ -355,6 +330,17 @@ class addMovie extends React.Component {
               />
             </div>
             <div className="form-group">
+              <label className="label-title">Number Of Seats </label>
+              <input
+                type="number"
+                className="form-input"
+                min="0"
+                max="200"
+                onChange={(e) => this.setState({ number_of_seats: e.target.value })}
+                value={this.state.number_of_seats}
+              />
+            </div>
+            <div className="form-group">
               <label className="label-title">Synopsis</label>
               <textarea
                 className="form-input"
@@ -380,4 +366,4 @@ class addMovie extends React.Component {
   6;
 }
 
-export default addMovie;
+export default AddMovie;

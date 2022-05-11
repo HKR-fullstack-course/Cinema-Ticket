@@ -17,6 +17,10 @@ import AddMovie from "../pages/addMovie";
 import MoviePage from "./MoviePage";
 
 import Sidebar from "./Sidebar";
+import Auth from "../_helper/Auth";
+import Navbar from "./Navbar/NavbarGuest";
+import NavbarUser from "./Navbar/NavbarUser";
+import NavbarAdmin from "./Navbar/NavbarAdmin";
 
 export const AuthContext = React.createContext();
 
@@ -29,7 +33,13 @@ const App = () => {
 
   return (
     <Router>
-      <NavbarParent toggle={toggle} />
+      {/* <NavbarParent toggle={toggle} /> */}
+
+
+      {/* this is another way to get ride of Navbar-Parent, Toggling and fixing drop list issue may be easier ? */}
+      {(Auth.isAuthenticated ? (Auth.isAdmin ? <NavbarAdmin  toggle={toggle} /> : <NavbarUser layout={"Log Out"} toggle={toggle} /> ) : <Navbar layout="Sing In" toggle={toggle}/> )}
+
+
 
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <Routes>

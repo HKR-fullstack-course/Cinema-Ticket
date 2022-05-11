@@ -8,6 +8,7 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 import { FaBars } from "react-icons/fa";
+import Auth from "../../_helper/Auth";
 
 const NavbarAdmin = (props, { toggle }) => {
   return (
@@ -33,8 +34,16 @@ const NavbarAdmin = (props, { toggle }) => {
           <NavLink to="/all_movies">Table Of Movies</NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink replace to="/" onClick={props.logout}>
-            {props.layout}
+          <NavBtnLink
+            replace
+            to="/"
+            onClick={() => {
+              Auth.logout();
+              window.localStorage.removeItem("auth-token");
+              window.location.replace('/');
+            }}
+          >
+            Log Out
           </NavBtnLink>
         </NavBtn>
       </Nav>

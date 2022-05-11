@@ -9,7 +9,9 @@ import {
 } from "./NavbarElements";
 import { FaBars } from "react-icons/fa";
 
-const NavbarUser = (props, { toggle }) => {
+import Auth from "../../_helper/Auth";
+
+const NavbarUser = ({ toggle }) => {
   return (
     <>
       <Nav>
@@ -30,8 +32,17 @@ const NavbarUser = (props, { toggle }) => {
           <NavLink to="/services">Buy Ticket</NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/signin" replace to="/" onClick={props.logout}>
-            {props.layout}
+          <NavBtnLink
+            to="/signin"
+            replace
+            to="/"
+            onClick={() => {
+              Auth.logout();
+              window.localStorage.removeItem("auth-token");
+              window.location.replace("/");
+            }}
+          >
+            Log Out
           </NavBtnLink>
         </NavBtn>
       </Nav>
