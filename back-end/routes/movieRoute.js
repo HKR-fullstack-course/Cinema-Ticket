@@ -82,6 +82,7 @@ router
 
       const body = uniqueSet.map((movie) => {
         return {
+          _id: movie._id,
           name: movie.name,
           movie_type: movie.movie_type,
           description: movie.description,
@@ -216,6 +217,10 @@ router
 const formatTime = (time, timeRequired) => {
   const date = timeRequired ? "dddd, Do MMMM YYYY; h:mm a" : "Do MMMM YYYY";
   return moment(new Date(time)).format(date);
+};
+
+const checkTime = (movieTime) => {
+  return Date.parse(movieTime) > Date.now();
 };
 
 module.exports = router;

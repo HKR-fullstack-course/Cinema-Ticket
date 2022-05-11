@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API - Documentation</title>
+    <link rel="stylesheet" href="./style/index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <ul class="header">
+      <a class="link" href="./index.html">
+        <li>Home</li>
+      </a>
+      <a class="link" href="./login.html">
+        <li>Login</li>
+      </a>
+    </ul>
+
+    
+    <section class="section">
+        <h2 class=>API - Documentation</h2>
+      <h3>Welcome in API-Documenation for Discovery-Cinema-App.</h3>
+      <p>The following Requests are used in Discovery Cinema App. The one with lock-icon is secured</p>
+    </section>
+
+    <div class="req-container">
+      <div class="req-clr get ">&nbsp;</div>
+      <span class="req-verb">get</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/movies </span>
+      <span class="req-type"></span>
+      <div class="req-descip">The response of this request is list of movies with no repeating. 
+          <br> Data retrived about the movie is name, movie-type, rate and description.
+      </div>
+      <div class="req-ex" style="height: ;">
+
+        </div>
+    </div>
+
+    <div class="req-container">
+      <div class="req-clr get ">&nbsp;</div>
+      <span class="req-verb ">get</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/image?owner_id=<span class="urlQuary-span">{image-ID}</span> </span>
+      <span class="req-type">Query</span>
+      <div class="req-descip">The response of this request is hex value for image that is saved on db.
+        <br>
+        Notice that the owner may be movie or user where db-collection for image is used for all images. <br>
+        Don't forget to replace  {image-ID} with the actual value of owner-id!
+        <br>
+        Notice that this endpoint is not used anymore by ower website. Images are hosted by passing them into another API.
+      </div>
+      <div class="req-ex">
+          owner_id
+        </div>
+    </div>
+
+    <div class="req-container">
+      <div class="req-clr get ">&nbsp;</div>
+      <span class="req-verb ">get</span>
+      <span class="req-url">http://localhost:5000/api/movie/{id}<span class="urlQuary-span">{image-ID}</span> </span>
+      <span class="req-type">Parameter</span>
+      <div class="req-descip">By passing the id of an exist movie, the client will get the details about the movie.
+
+        <br>
+        More over, all the movies with the same name will be fetched. The screening time, ticket prices and id are
+        <br> sent back to establish booking
+      </div>
+      <div class="req-ex">
+          :_id
+        </div>
+    </div>
+
+
+    <div class="req-container">
+      <div class="req-clr get ">&nbsp;</div>
+      <span class="req-verb ">get</span>
+      <span class="req-url">http://localhost:5000/api/movie/all_movies_table<span class="urlQuary-span">{image-ID}</span> </span>
+      <span class="req-type"></span>
+      <div class="req-descip">To get a json with all movies including the following fields:
+        _id <br>
+        name <br>
+        ticket_price <br>
+        age_range <br>
+        show_time <br>
+        url<br>
+        number_of_seats <br>
+
+      </div>
+      <div class="req-ex">
+        </div>
+    </div>
+
+
+
+
+    <div class="req-container">
+      <div class="req-clr post">&nbsp;</div>
+      <span class="req-verb">post</span>
+      <!-- <span class="copy-icon-label">Copy</span> -->
+      <!-- <i class="fa fa-copy copy-icon" class="copy-icon" style="font-size:24px"></i> -->
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/create_user<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">The response to this request is to create a new user account.
+      </div>
+      <div class="req-ex">
+          name, email, password, phonenumber, birthdate
+        </div>
+    </div>
+
+
+    
+    <div class="req-container">
+      <div class="req-clr post">&nbsp;</div>
+      <span class="req-verb">post</span>
+      <i class="fa fa-lock copy-icon" style="font-size:24px"></i>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/create_admin<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">The response to this request is to create a new admin account to operate the webpage.
+        <br>
+        <br>
+          This is a secure API-endpoint and not available to be used by public
+      </div>
+      <div class="req-ex">
+          name, email, password, phonenumber
+        </div>
+    </div>
+
+    <div class="req-container">
+      <div class="req-clr post">&nbsp;</div>
+      <span class="req-verb">post</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/add_movie<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">The response to this request is to create a new user account.
+      </div>
+      <div class="req-ex">
+          name, release_date, movie_type, description, rate, budget, main_actors, ticket_price, show_time, age_range
+        </div>
+    </div>
+
+    
+    <div class="req-container">
+      <div class="req-clr post">&nbsp;</div>
+      <span class="req-verb">post</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/login<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">The response to this request is to verify the user account.
+      </div>
+      <div class="req-ex">
+          email, password
+        </div>
+    </div>
+
+    <div class="req-container">
+      <div class="req-clr post">&nbsp;</div>
+      <span class="req-verb">post</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/ticket/add_ticket<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">To establish ticket in db.
+      </div>
+      <div class="req-ex">
+        customer_id, movie_id, number_of_tickets
+   } 
+   
+        </div>
+    </div>
+
+
+
+
+    <div class="req-container">
+      <div class="req-clr put">&nbsp;</div>
+      <span class="req-verb">put</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/update_user<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">The response to this request is updating the user account.
+      <br>
+      It is not required to pass all values, the server will update only values the are exist in the <body>
+        <br>
+        and update them, the other fields will still the same if not passed throw request.
+      </body>
+      </div>
+      <div class="req-ex">
+        user_id, name, email, password, image_url
+        </div>
+    </div>
+
+    <div class="req-container">
+      <div class="req-clr put">&nbsp;</div>
+      <span class="req-verb">put</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/update<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">The response to this request is updating the user account.
+      <br>
+      It is not required to pass all values, the server will update only values the are exist in the <body>
+        <br>
+        and update them, the other fields will still the same if not passed throw request.
+      </body>
+      </div>
+      <div class="req-ex">
+        user_id, name, email, password, image_url
+        </div>
+    </div>
+
+
+
+    <div class="req-container">
+      <div class="req-clr delete">&nbsp;</div>
+      <span class="req-verb">delete</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/delete_movie<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">To delete a movie from db.
+      </body>
+      </div>
+      <div class="req-ex">
+        _id
+        </div>
+    </div>
+
+
+
+    <div class="req-container">
+      <div class="req-clr delete">&nbsp;</div>
+      <span class="req-verb">delete</span>
+      <span class="req-url">https://api-cinema-ticket.herokuapp.com/api/delete_user_account<span class="urlQuary-span"></span> </span>
+      <span class="req-type">Body</span>
+      <div class="req-descip">To delete user account
+      </body>
+      </div>
+      <div class="req-ex">
+        _id
+        </div>
+    </div>
+
+    <script src="./src/index.js"></script>
+  </body>
+</html>
