@@ -45,8 +45,7 @@ const addMovie = () => {
             <div class="form-group left">
             <label class="label-title">Actors :</label>
             <input type="text" class="form-input" id="leadActor" placeholder="Enter the name of the lead actor" required="required" />
-            <br/>
-            <input type="text" class="form-input" id="SupportingActor" placeholder="Enter the name of the supporting actor" required="required" />
+            <button class="add_field_button">Add more +</button>
             </div>
             <div class="form-group right">
             <label class="label-title">Genre :</label>

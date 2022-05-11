@@ -17,8 +17,8 @@ const NavbarUser = (props, { toggle }) => {
           <img
             src={require("../../images/logo.png")}
             alt="logo"
-            width="110px"
-            height="80px"
+            width="350px" 
+            height="70px"
           />
         </NavLink>
         <Bars onClick={toggle}>
@@ -30,7 +30,7 @@ const NavbarUser = (props, { toggle }) => {
           <NavLink to="/services">Buy Ticket</NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink to="/signin" replace to="/" onClick={props.logout}>
+          <NavBtnLink  replace to="/" onClick={props.logout}>
             {props.layout}
           </NavBtnLink>
         </NavBtn>

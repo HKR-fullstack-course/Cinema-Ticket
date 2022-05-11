@@ -30,7 +30,6 @@ const App = () => {
   return (
     <Router>
       <NavbarParent toggle={toggle} />
-
       <Sidebar isOpen={isOpen} toggle={toggle} />
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -40,6 +39,7 @@ const App = () => {
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/users" element={<Users />} />
+        <Route exact path="/addMovie" element={<AddMovie />} />
         <Route exact path="/all_movies" element={<AllMovies />} />
         <Route path="/movie/:name" element={<Parent_slide />} />
 

@@ -3,7 +3,7 @@ import { SidebarCountainer,Icon,CloseIcon,SidebarMenu,SidebarWrapper,SidebarLink
 const Sidebar = ({isOpen,toggle}) => {
   return (
     <SidebarCountainer isOpen={isOpen} onClick={toggle}>
-        <Icon  onClick={toggle}>
+        <Icon onClick={toggle}>
             <CloseIcon/>
         </Icon>
         <SidebarWrapper>
