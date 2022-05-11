@@ -122,7 +122,13 @@ router
     for (let k of data) {
       let time = k.show_time;
       let price = k.ticket_price;
-      returnedValue.push({ _id: k._id, ticket_price: price, show_time: time });
+      let seats = k.number_of_seats;
+      returnedValue.push({
+        _id: k._id,
+        ticket_price: price,
+        show_time: time,
+        number_of_seats: seats,
+      });
     }
 
     res.json({
@@ -136,6 +142,7 @@ router
         rate: movieName.rate,
         budget: movieName.budget,
         main_actors: movieName.main_actors,
+        image_url: movieName.image_url,
         time: returnedValue,
       },
     });
