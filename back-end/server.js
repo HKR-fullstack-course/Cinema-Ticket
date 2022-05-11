@@ -13,7 +13,7 @@ const movie = require("./routes/movieRoute");
 const login = require("./routes/loginRoute");
 const admin = require("./routes/adminRoute");
 const ticket = require("./routes/ticketRoute");
-const home = require("./routes/doc/homeRoute");
+const home = require("./routes/api_doc/homeRoute");
 
 const app = express();
 app.use(express.json());
