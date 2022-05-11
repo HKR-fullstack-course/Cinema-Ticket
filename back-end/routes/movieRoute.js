@@ -11,7 +11,7 @@ router
       return res.status(400).json({
         error: "Bad request",
       });
-    } 
+    }
     const { error } = movieValidation(req.body);
 
     if (error) {
@@ -30,9 +30,11 @@ router
       budget: req.body.budget,
       main_actors: req.body.main_actors,
       ticket_price: req.body.ticket_price,
+      number_of_seats: req.body.number_of_seats,
       show_time: req.body.show_time,
       show_date: req.body.show_date,
       age_range: req.body.age_range,
+      image_url: req.body.image_url,
     });
 
     try {
@@ -98,18 +100,53 @@ router
       });
     }
   })
-  .get("/movie", async (req, res) => {
-    const movies = await Movie.find();
-    const moviesWithAgeRate = movies.filter( (element)  => element.age_range <= req.query.user_age)
-    const movie = {};
+  // .get("/movie", async (req, res) => {
+  //   const movies = await Movie.find();
+  //   const movie = {};
+  //   const data = movies.filter((item) => item.name == req.query.movie_name);
 
-    for (let obj of moviesWithAgeRate) {
-      if (obj.name.trim() == req.query.movie_name && checkTime(obj.show_time)) {
-        movie[obj._id] = formatTime(obj.show_time, true);
-      }
+  //   for (let obj of movies) {
+  //     if (obj.name.trim() == req.query.movie_name) {
+  //       movie[obj._id] = formatTime(obj.show_time, true);
+  //     }
+  //   }
+
+  //   res.json({ confirmation: "seccuss", body: movie });
+  // })
+  .get("/movie/:_id", async (req, res) => {
+    const allMovies = await Movie.find();
+    const movieName = await Movie.findOne({ _id: req.params._id });
+    const data = allMovies.filter((item) => item.name >= movieName.name);
+
+    let returnedValue = [];
+
+    for (let k of data) {
+      let time = k.show_time;
+      let price = k.ticket_price;
+      let seats = k.number_of_seats;
+      returnedValue.push({
+        _id: k._id,
+        ticket_price: price,
+        show_time: time,
+        number_of_seats: seats,
+      });
     }
 
-    res.json({ confirmation: "seccuss", body: movie });
+    res.json({
+      confirmation: "success",
+      body: {
+        name: movieName.name,
+        movie_type: movieName.movie_type,
+        release_date: movieName.release_date,
+        director: movieName.director,
+        description: movieName.description,
+        rate: movieName.rate,
+        budget: movieName.budget,
+        main_actors: movieName.main_actors,
+        image_url: movieName.image_url,
+        time: returnedValue,
+      },
+    });
   })
   .get("/all_movies/:movie_type", async (req, res) => {
     try {
@@ -131,6 +168,50 @@ router
         body: error.message,
       });
     }
+  })
+  .put("/update_movie_image", async (req, res) => {
+    const movie = await Movie.findOne({ _id: req.body._id });
+
+    if (!movie) {
+      return res.status(400).json({
+        error: "Fail to Find the Movie",
+      });
+    }
+
+    try {
+      movie.image_url = req.body.url || movie.image_url;
+      await movie.save();
+      res.status(201).json({
+        confirmation: "success",
+        body: "Movie's Image is updated",
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: "Error occue while updating",
+      });
+    }
+  })
+  .delete("/delete_movie", async (req, res) => {
+    try {
+      const movie = await Movie.findByIdAndDelete({ _id: req.body._id });
+
+      if (!movie) {
+        return res.status(400).json({
+          error: "Fail to Find the Movie",
+        });
+      }
+
+      res.status(201).json({
+        confirmation: "success",
+        body: "The Movie is deleted",
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: "Error occue while deleting",
+      });
+    }
   });
 
 const formatTime = (time, timeRequired) => {
@@ -139,7 +220,7 @@ const formatTime = (time, timeRequired) => {
 };
 
 const checkTime = (movieTime) => {
-  return Date.parse(movieTime) > Date.now()
-}
+  return Date.parse(movieTime) > Date.now();
+};
 
 module.exports = router;

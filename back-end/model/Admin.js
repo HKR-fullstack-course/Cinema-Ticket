@@ -25,6 +25,14 @@ const adminSchema = new mongoose.Schema({
     length: 10,
     min: 10,
   },
+  role: {
+    type: String,
+    default: "admin",
+  },
+  image_url: {
+    type: String,
+    default: `https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/v1652046733/image/avatar/default.jpg`,
+  },
   date: {
     type: Date,
     default: Date.now,

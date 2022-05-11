@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 import Card from "./Card";
 
@@ -14,10 +14,10 @@ class CardList extends React.Component {
 
   render() {
     const movieCard = this.state.movies.map((movie, index) => {
-      console.log(movie);
-      return (
+       return (
         <Card name={movie.name} _id={movie._id} key={index} rate={movie.rate} />
       );
+      // <li>{movie.name}</li>
     });
     return <div>{movieCard}</div>;
   }

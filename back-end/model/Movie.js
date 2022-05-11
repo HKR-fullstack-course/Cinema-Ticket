@@ -13,18 +13,12 @@ const movieSchema = new mongoose.Schema({
   },
   director: {
     type: String,
-    required: true,
-    min: 8,
-    max: 255,
   },
   movie_type: {
     type: String,
-    min: 7,
-    max: 512,
   },
   description: {
     type: String,
-    max: 1024,
   },
   rate: {
     type: Number,
@@ -32,7 +26,7 @@ const movieSchema = new mongoose.Schema({
     default: -1, // -1 if movie is not rated
   },
   budget: {
-    type: String,
+    type: Number,
   },
   main_actors: {
     type: Array,
@@ -53,6 +47,13 @@ const movieSchema = new mongoose.Schema({
   age_range: {
     type: Number,
     required: true,
+  },
+  image_url: {
+    type: String,
+    default: `https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/v1652046733/image/avatar/default.jpg`,
+  },
+  number_of_seats: {
+    type: Number,
   },
   date: {
     type: Date,
