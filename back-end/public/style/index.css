@@ -90,11 +90,24 @@ div.req-container {
   display: inline-block;
   content: "";
   margin: 0 10px 0 0;
-  background: #3cb371;
   height: 100%;
   width: 40%;
   grid-column: 1 / 0.5;
   grid-row: 1 / -1;
+}
+
+.get {
+  background: #3cb371;
+}
+.post {
+  background: #a3b33c;
+}
+.put {
+  background: #3c66b3;
+}
+
+.delete {
+  background: #b33c58;
 }
 
 .req-descip {
@@ -107,7 +120,6 @@ div.req-container {
   grid-column: 3 / -1;
   grid-row: 9;
   display: inline-block;
-
 }
 
 .copy-icon {
@@ -144,7 +156,6 @@ div.req-container {
 @media screen and (max-width: 800px) {
   div.req-container {
     height: 28rem;
-    
   }
 
   .req-verb {
@@ -167,7 +178,6 @@ div.req-container {
   .req-ex {
     grid-column: 5 / -1;
     grid-row: 10;
-    
   }
 
   .copy-icon-label {
@@ -185,8 +195,7 @@ div.req-container {
     width: 100%;
     height: 250px;
     margin-top: 7rem;
-    box-shadow:  none;
-
+    box-shadow: none;
   }
 
   .req-clr {
@@ -219,5 +228,4 @@ div.req-container {
     grid-column: 1 / -1;
     margin: 15px;
   }
-
 }
