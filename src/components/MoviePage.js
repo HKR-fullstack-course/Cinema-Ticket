@@ -61,7 +61,6 @@ const MoviePage = () => {
                 </div>
                 <p>Total amount to pay {finalPrice}kr</p>
 
-
             </div>
         </div>
     )
