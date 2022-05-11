@@ -12,6 +12,7 @@ const user = require("./routes/userRoute");
 const movie = require("./routes/movieRoute");
 const login = require("./routes/loginRoute");
 const admin = require("./routes/adminRoute");
+const ticket = require('./routes/ticketRoute');
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,7 @@ app.use("/api", user);
 app.use("/api", movie);
 app.use("/api", login);
 app.use("/api", admin);
+app.use("/api/ticket", ticket);
 
 mongoose
   .connect(process.env.DB_CONNECTION, {

@@ -13,18 +13,12 @@ const movieSchema = new mongoose.Schema({
   },
   director: {
     type: String,
-    required: true,
-    min: 8,
-    max: 255,
   },
   movie_type: {
     type: String,
-    min: 7,
-    max: 512,
   },
   description: {
     type: String,
-    max: 1024,
   },
   rate: {
     type: Number,
@@ -32,7 +26,7 @@ const movieSchema = new mongoose.Schema({
     default: -1, // -1 if movie is not rated
   },
   budget: {
-    type: String,
+    type: Number,
   },
   main_actors: {
     type: Array,
