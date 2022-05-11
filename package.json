@@ -2,56 +2,34 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "cd back-end && node server.js",
+    "server": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^6.1.2",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
-    "@hapi/joi": "^17.1.1",
     "avatar-builder": "^1.0.2",
-    "axios": "^0.27.1",
-    "bcrypt": "^5.0.1",
-    "bcryptjs": "^2.4.3",
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.27.2",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
-    "joi": "^17.6.0",
+    "generate-avatar": "^1.4.10",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
-    "node-sass": "^7.0.1",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "5.0.1",
-    "react-slick": "^0.29.0",
+    "moment": "^2.29.3",
+    "mongoose": "^6.3.1",
+    "multer": "^1.4.4",
     "signale": "^1.4.0",
-    "slick-carousel": "^1.8.1",
-    "web-vitals": "^2.1.4"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "uuid": "^3.4.0"
   }
 }
