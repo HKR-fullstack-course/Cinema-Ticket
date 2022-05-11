@@ -30,11 +30,10 @@
 }
 
 #error {
-    /* position: absolute; */
-    font-size: medium; 
-    grid-row: 5;
-    grid-column: 2 / -1
-
+  /* position: absolute; */
+  font-size: medium;
+  grid-row: 5;
+  grid-column: 2 / -1;
 }
 
 .btn {
