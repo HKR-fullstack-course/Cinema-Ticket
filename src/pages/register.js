@@ -5,6 +5,8 @@ import { Navigate } from "react-router-dom";
 
 import { validateRegister } from "./validate/validator";
 import api from "../api/api";
+import { postImage } from "../api/postImage";
+import Footer from "../components/Footer";
 
 class Register extends React.Component {
   state = {
@@ -22,12 +24,10 @@ class Register extends React.Component {
   };
 
   updateImageInDB = async (url) => {
-    console.log("url : ", url);
-    console.log("id > ", this.state._id);
     if (url) {
       try {
         await api.put("/update_user", {
-          _id: "627963a230ab0100309773ff",
+          _id: this.state._id,
           image: url,
         });
       } catch (error) {
@@ -41,22 +41,22 @@ class Register extends React.Component {
     return res;
   };
 
-  postImage = async (id) => {
-    const formData = new FormData();
-    formData.append("file", this.state.image);
-    formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-    formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-    formData.append("public_id", id);
+  // postImage = async (id) => {
+  //   const formData = new FormData();
+  //   formData.append("file", this.state.image);
+  //   formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
+  //   formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
+  //   formData.append("public_id", id);
 
-    const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-    return res.json();
-  };
+  //   const res = await fetch(
+  //     `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
+  //     {
+  //       method: "POST",
+  //       body: formData,
+  //     }
+  //   );
+  //   return res.json();
+  // };
 
   updateUserAvatar = async (id, url) => {
     const res = await api.put("/update_user", {
@@ -105,7 +105,8 @@ class Register extends React.Component {
 
       const resp = await this.postUser(body);
       if (this.state.image) {
-        const response = await this.postImage(resp.data.user_id);
+        const response = await postImage(resp.data.user_id, this.state.image);
+        console.log(response);
         const res = await this.updateUserAvatar(
           resp.data.user_id,
           response.secure_url
@@ -235,6 +236,14 @@ class Register extends React.Component {
             </p>
           </section>
         )}
+        <div id="spider">
+            <img
+                  src={require("../images/spider.png")}
+                  alt="logo" 
+                  width="400px" height="707px"
+                  />
+      </div>
+      <Footer/>
       </>
     );
   };

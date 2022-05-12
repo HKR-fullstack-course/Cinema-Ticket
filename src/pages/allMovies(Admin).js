@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 
 import api from "../api/api";
 import Auth from "../_helper/Auth";
+import Footer from "../components/Footer";
 
 class Users extends React.Component {
   state = {
@@ -15,9 +16,14 @@ class Users extends React.Component {
     response: [],
   };
 
-  deleteUser = (user_id, name) => {
-    if (window.confirm(`Do you want to delete the movie ${name} ?`)) {
-        console.log(user_id);
+  deleteMovie = async (_id, name) => {
+    if (window.confirm(`Do you want to delete the user ${name} ?`)) {
+      await api.delete("/delete_movie", {
+        data: { _id },
+      });
+
+      // this.forceUpdate()  // <= this method doesn't work for a reason!
+      window.location.reload();
     }
   };
 
@@ -90,16 +96,16 @@ class Users extends React.Component {
                         <img className="img" src={item.url} />
                       </td>
                       <td className="table-name">{item.name}</td>
-                      <td className="table-phone re-hide">
-                        {item.show_time}
+                      <td className="table-phone re-hide">{item.show_time}</td>
+                      <td className="table-email table-price">
+                        {item.ticket_price}
                       </td>
-                      <td className="table-email table-price">{item.ticket_price}</td>
                       <td className="table-nTicket hide">{item.age_range}</td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"
                           onClick={() => {
-                            this.deleteUser(item._id, item.name);
+                            this.deleteMovie(item._id, item.name);
                           }}
                         >
                           Delete
@@ -124,6 +130,7 @@ class Users extends React.Component {
         ) : (
           <></>
         )}
+        <Footer/>
       </>
     );
   }

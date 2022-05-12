@@ -1,9 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,200;1,900&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: 0;
+  scrollbar-width: none;
 }
 
 .form-login-container {
@@ -23,6 +24,8 @@
 
 .header {
   margin: 1rem auto;
+  color:#C70039;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 .input-group {
@@ -54,8 +57,11 @@
   left: 50%;
   top: 90%;
   transform: translate(-50%, -50%);
-  background: #256ce1;
+  background: #C70039;;
   color: #fff;
+  font-family:'Source Sans Pro', sans-serif;
+  font-size: 30px;
+  font-style: bold;
 }
 
 .errmsg {
@@ -78,7 +84,16 @@
   top: 80%;
   transform: translate(2%, -50%);
 }
+#pic{
+  margin-left: 56%;
+  margin-top: -245px;
+}
 
+#spider{
+  margin-right: 66%;
+  margin-top: -916px;
+  padding-bottom: 280px;
+}
 @media screen and (max-width: 1000px) {
   .form-login-container {
     width: 90%;

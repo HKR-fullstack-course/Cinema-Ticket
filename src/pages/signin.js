@@ -7,7 +7,7 @@ import api from "../api/api";
 import { validateLogin } from "./validate/validator";
 
 import Auth from "../_helper/Auth";
-
+import Footer from "../components/Footer";
 const Signin = () => {
   const userRef = useRef();
   const errRef = useRef();
@@ -113,6 +113,14 @@ const Signin = () => {
           </p>
         </section>
       )}
+      <div id="pic">
+        <img
+              src={require("../images/signinStyle.png")}
+              alt="logo" 
+              width="800px" height="707px"
+              />
+      </div>
+    <Footer/>
     </>
   );
 };

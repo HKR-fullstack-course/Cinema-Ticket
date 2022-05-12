@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Nav,
   NavLink,
@@ -8,9 +8,20 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 import { FaBars } from "react-icons/fa";
-const NavbarAdmin = (props, { toggle }) => {
+import Auth from "../../_helper/Auth";
+import Sidebar from "../Sidebar/SidebarAdmin";
+
+const NavbarAdmin = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
+    
+    <Sidebar isOpen={isOpen} toggle={toggle} />
       <Nav>
         <NavLink to="/">
           <img
@@ -31,8 +42,16 @@ const NavbarAdmin = (props, { toggle }) => {
           <NavLink to="/all_movies">Table Of Movies</NavLink>
         </NavMenu>
         <NavBtn>
-          <NavBtnLink replace to="/" onClick={props.logout}>
-            {props.layout}
+          <NavBtnLink
+            replace
+            to="/"
+            onClick={() => {
+              Auth.logout();
+              window.localStorage.removeItem("auth-token");
+              window.location.replace('/');
+            }}
+          >
+            Log Out
           </NavBtnLink>
         </NavBtn>
       </Nav>

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import Image from "./Image";
 import api from "../api/api";
-
-import style from "../style/Card.css" //not used but still in effect
+import style from "../style/Card.module.css" //not used but still in effect
 import { Link } from 'react-router-dom';
 
 class Card extends Component {
@@ -39,7 +38,7 @@ class Card extends Component {
     return (
 
       <Link to={"/movie/" + this.props._id}>
-        <div class="style.card card-1">
+        <div class={style.card}>
           <div class="style.card card-top "><Image image={this.state.image} alt={this.props.name} />
           </div>
           <h4 class="style.card card-bottom">{this.props.name}</h4>
