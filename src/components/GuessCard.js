@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Image from "./Image";
 import style from "../style/Card.module.css" //not used but still in effect
 
-class Card extends React.Component {
+class Card extends Component {
 
     async handleClick(name) {
         console.log(`this is ${name}`);

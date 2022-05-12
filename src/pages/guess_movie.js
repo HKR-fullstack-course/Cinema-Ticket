@@ -1,9 +1,14 @@
 import React from 'react';
-import Parent_Slide_Guest from '../components/Guess_Parent_Slide'
+import ParentSlideGuest from '../components/Guess_Parent_Slide'
+import Footer from '../components/Footer';
+
 
 const Guest_movies = () => {
     return (
-        <Parent_Slide_Guest />
+        <>
+            <ParentSlideGuest />
+            <Footer />
+        </>
     );
 };
 

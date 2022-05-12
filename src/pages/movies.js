@@ -1,12 +1,12 @@
 import React from 'react';
-import Parent_Slide from '../components/Parent_Slide'
+import ParentSlide from '../components/Parent_Slide'
 import Footer from '../components/Footer';
 
 const Movies = () => {
   return (
     <>
-    <Parent_Slide />
-    <Footer/>
+      <ParentSlide />
+      <Footer />
     </>
   );
 };

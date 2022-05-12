@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import NavbarParent from "./Navbar/NavbarParent";
-import Parent_slide from "./Parent_Slide";
 
 import Home from "../pages";
 import About from "../pages/about";
