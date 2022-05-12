@@ -4,6 +4,7 @@ import React from "react";
 
 import api from "../api/api";
 import { postImage } from "../api/postImage";
+import Footer from "../components/Footer";
 
 class AddMovie extends React.Component {
   state = {
@@ -240,8 +241,8 @@ class AddMovie extends React.Component {
                   <option value="saab">Action</option>
                   <option value="Musical">Musical</option>
                   <option value="Drama">Drama</option>
-                  <option value="Herror">Herror</option>
-                  <option value="Scince">Scince</option>
+                  <option value="Herror">Horror</option>
+                  <option value="Scince">Science</option>
                   <option value="Romance">Romance</option>
                   <option value="Crime">Crime</option>
                   <option value="Adventure">Adventure</option>
@@ -360,6 +361,7 @@ class AddMovie extends React.Component {
             </button>
           </div>
         </form>
+        <Footer/>
       </>
     );
   }

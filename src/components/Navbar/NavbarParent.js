@@ -1,20 +1,14 @@
 import React from "react";
 
-import {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-  NavBtn,
-  NavBtnLink,
-} from "./NavbarElements";
 
 import Auth from "../../_helper/Auth";
 import Navbar from "./NavbarGuest";
 import NavbarUser from "./NavbarUser";
 import NavbarAdmin from "./NavbarAdmin";
 
+
 class NavbarParent extends React.Component {
+  
   state = {
     isAuthenticated: false,
     isAdmin: false,
@@ -35,6 +29,7 @@ class NavbarParent extends React.Component {
     window.location.reload();
     Auth.logout();
   };
+  
 
   renderChildNavbar() {
     if (Auth.isAuthenticated && Auth.isUser) {

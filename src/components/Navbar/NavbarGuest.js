@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Nav,
   NavLink,
@@ -8,17 +8,23 @@ import {
   NavBtnLink,
 } from "./NavbarElements";
 import { FaBars } from "react-icons/fa";
+import Sidebar from "../Sidebar";
+const Navbar = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-const Navbar = (props, { toggle }) => {
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
+    <Sidebar isOpen={isOpen} toggle={toggle} />
       <Nav>
         <NavLink to="/">
           <img
             src={require("../../images/logo.png")}
             alt="logo"
-            width="110px"
-            height="80px"
+            width="350px" height="70px"
           />
         </NavLink>
         <Bars onClick={toggle}>

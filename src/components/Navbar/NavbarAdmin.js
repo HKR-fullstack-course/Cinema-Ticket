@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Nav,
   NavLink,
@@ -9,17 +9,25 @@ import {
 } from "./NavbarElements";
 import { FaBars } from "react-icons/fa";
 import Auth from "../../_helper/Auth";
+import Sidebar from "../Sidebar/SidebarAdmin";
 
-const NavbarAdmin = (props, { toggle }) => {
+const NavbarAdmin = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <>
+    
+    <Sidebar isOpen={isOpen} toggle={toggle} />
       <Nav>
         <NavLink to="/">
           <img
             src={require("../../images/logo.png")}
             alt="logo"
-            width="110px"
-            height="80px"
+            width="350px" height="70px"
           />
         </NavLink>
         <Bars onClick={toggle}>

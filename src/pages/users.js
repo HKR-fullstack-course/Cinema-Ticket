@@ -4,6 +4,7 @@ import { Navigate } from "react-router-dom";
 
 import api from "../api/api";
 import Auth from "../_helper/Auth";
+import Footer from "../components/Footer";
 
 class Users extends React.Component {
   state = {
@@ -125,6 +126,7 @@ class Users extends React.Component {
         ) : (
           <></>
         )}
+        <Footer/>
       </>
     );
   }

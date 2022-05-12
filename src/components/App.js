@@ -16,13 +16,10 @@ import Users from "../pages/users";
 import AllMovies from "../pages/allMovies(Admin)";
 import AddMovie from "../pages/addMovie";
 import MoviePage from "./MoviePage";
-
-import Sidebar from "./Sidebar";
 import Auth from "../_helper/Auth";
 import Navbar from "./Navbar/NavbarGuest";
 import NavbarUser from "./Navbar/NavbarUser";
 import NavbarAdmin from "./Navbar/NavbarAdmin";
-
 export const AuthContext = React.createContext();
 
 const App = () => {
@@ -35,14 +32,9 @@ const App = () => {
   return (
     <Router>
       {/* <NavbarParent toggle={toggle} /> */}
-
-
       {/* this is another way to get ride of Navbar-Parent, Toggling and fixing drop list issue may be easier ? */}
       {(Auth.isAuthenticated ? (Auth.isAdmin ? <NavbarAdmin toggle={toggle} /> : <NavbarUser layout={"Log Out"} toggle={toggle} />) : <Navbar layout="Sing In" toggle={toggle} />)}
 
-
-
-      <Sidebar isOpen={isOpen} toggle={toggle} />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
@@ -52,6 +44,7 @@ const App = () => {
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/users" element={<Users />} />
+        <Route exact path="/addMovie" element={<AddMovie />} />
         <Route exact path="/all_movies" element={<AllMovies />} />
 
         {/* //Movie slider  */}

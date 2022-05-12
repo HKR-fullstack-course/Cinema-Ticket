@@ -9,6 +9,7 @@ import {
 } from './NavbarElements';
 import { FaBars } from 'react-icons/fa';
 const Navbar = ({toggle}) => {
+  
   return (
     <>
       <Nav>

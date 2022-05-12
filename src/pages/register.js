@@ -6,6 +6,7 @@ import { Navigate } from "react-router-dom";
 import { validateRegister } from "./validate/validator";
 import api from "../api/api";
 import { postImage } from "../api/postImage";
+import Footer from "../components/Footer";
 
 class Register extends React.Component {
   state = {
@@ -235,6 +236,14 @@ class Register extends React.Component {
             </p>
           </section>
         )}
+        <div id="spider">
+            <img
+                  src={require("../images/spider.png")}
+                  alt="logo" 
+                  width="400px" height="707px"
+                  />
+      </div>
+      <Footer/>
       </>
     );
   };
