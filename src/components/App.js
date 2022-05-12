@@ -32,8 +32,7 @@ const App = () => {
     <Router>
       {/* <NavbarParent toggle={toggle} /> */}
       {/* this is another way to get ride of Navbar-Parent, Toggling and fixing drop list issue may be easier ? */}
-      {(Auth.isAuthenticated ? (Auth.isAdmin ? <NavbarAdmin  toggle={toggle} /> : <NavbarUser layout={"Log Out"} toggle={toggle} /> ) : <Navbar layout="Sing In" toggle={toggle}/>)}
-    
+      {(Auth.isAuthenticated ? (Auth.isAdmin ? <NavbarAdmin toggle={toggle} /> : <NavbarUser layout={"Log Out"} toggle={toggle} />) : <Navbar layout="Sing In" toggle={toggle} />)}
 
       <Routes>
         <Route exact path="/" element={<Home />} />
@@ -45,9 +44,6 @@ const App = () => {
         <Route exact path="/users" element={<Users />} />
         <Route exact path="/addMovie" element={<AddMovie />} />
         <Route exact path="/all_movies" element={<AllMovies />} />
-        <Route path="/movie/:name" element={<Parent_slide />} />
-        
-
 
         {/* //Movie slider  */}
         <Route exact path="/add_movie" element={<AddMovie />} />
