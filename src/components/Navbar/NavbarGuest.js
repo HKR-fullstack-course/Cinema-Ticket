@@ -25,7 +25,7 @@ const Navbar = (props, { toggle }) => {
           <FaBars />
         </Bars>
         <NavMenu>
-          <NavLink to="/movies">Movies</NavLink>
+          <NavLink to="/guess_movie">Movies</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/services">Services</NavLink>
         </NavMenu>

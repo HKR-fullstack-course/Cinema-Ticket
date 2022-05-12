@@ -6,7 +6,7 @@ import slider_style from "../style/Slider.module.css";
 
 import api from "../api/api";
 
-import Card from './Card'
+import GuessCard from './GuessCard'
 
 export default class FilmSlider extends Component {
     state = { movies: [] }; //this is to get the data
@@ -18,7 +18,7 @@ export default class FilmSlider extends Component {
 
     slider() { //Function to loop through and make each cell
         return this.state.movies.map((movie, index) =>
-            <Card name={movie.name} _id={movie._id} image={movie.image_url} key={index} />
+            <GuessCard name={movie.name} _id={movie._id} image={movie.image_url} key={index} />
         );
     }
 

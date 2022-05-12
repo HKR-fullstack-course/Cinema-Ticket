@@ -7,6 +7,7 @@ import Parent_slide from "./Parent_Slide";
 import Home from "../pages";
 import About from "../pages/about";
 import Movies from "../pages/movies";
+import GuestMovie from "../pages/guess_movie"
 import Signin from "../pages/signin";
 import Register from "../pages/register";
 import ErrorPage from "../pages/ErrorPage";
@@ -47,6 +48,7 @@ const App = () => {
         <Route exact path="/about" element={<About />} />
         <Route exact path="/services" element={<Services />} />
         <Route exact path="/movies" element={<Movies />} />
+        <Route exact path="/guess_movie" element={<GuestMovie />} />
         <Route exact path="/signin" element={<Signin />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/users" element={<Users />} />
