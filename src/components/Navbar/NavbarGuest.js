@@ -31,7 +31,7 @@ const Navbar = (props) => {
           <FaBars />
         </Bars>
         <NavMenu>
-          <NavLink to="/guess_movie">Movies</NavLink>
+          <NavLink to="/movie_list">Movies</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/services">Services</NavLink>
         </NavMenu>

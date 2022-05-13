@@ -34,7 +34,7 @@ const NavbarAdmin = (props) => {
           <FaBars />
         </Bars>
         <NavMenu>
-          <NavLink to="/movies">Movies</NavLink>
+          <NavLink to="/movie_list">Movies</NavLink>
           <NavLink to="/add_movie">Add Movie</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/users">Users</NavLink>

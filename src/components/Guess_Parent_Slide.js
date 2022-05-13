@@ -24,8 +24,8 @@ class Guess_Parent_Slide extends Component {
 
     render() {
         this.state.movies.forEach((movie) => {
-            if (this.state.movie_type.includes(movie.movie_type.toLowerCase()) === false) {
-                this.state.movie_type.push(movie.movie_type.toLowerCase());
+            if (this.state.movie_type.includes(movie.movie_type.toUpperCase().trim()) === false) {
+                this.state.movie_type.push(movie.movie_type.toUpperCase());
             }
         });
         const All = this.state.movie_type.map(genre => {
