@@ -114,39 +114,46 @@ router
   //   res.json({ confirmation: "seccuss", body: movie });
   // })
   .get("/movie/:_id", async (req, res) => {
-    const allMovies = await Movie.find();
-    const movieName = await Movie.findOne({ _id: req.params._id });
-    const data = allMovies.filter((item) => item.name >= movieName.name);
+    try {
+      const allMovies = await Movie.find();
+      const movieName = await Movie.findOne({ _id: req.params._id });
+      const data = allMovies.filter((item) => item.name >= movieName.name);
 
-    let returnedValue = [];
+      let returnedValue = [];
 
-    for (let k of data) {
-      let time = k.show_time;
-      let price = k.ticket_price;
-      let seats = k.number_of_seats;
-      returnedValue.push({
-        _id: k._id,
-        ticket_price: price,
-        show_time: time,
-        number_of_seats: seats,
+      for (let k of data) {
+        let time = k.show_time;
+        let price = k.ticket_price;
+        let seats = k.number_of_seats;
+        returnedValue.push({
+          _id: k._id,
+          ticket_price: price,
+          show_time: time,
+          number_of_seats: seats,
+        });
+      }
+
+      res.status(200).json({
+        confirmation: "success",
+        body: {
+          name: movieName.name,
+          movie_type: movieName.movie_type,
+          release_date: movieName.release_date,
+          director: movieName.director,
+          description: movieName.description,
+          rate: movieName.rate,
+          budget: movieName.budget,
+          main_actors: movieName.main_actors,
+          image_url: movieName.image_url,
+          time: returnedValue,
+        },
+      });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        body: error.message,
       });
     }
-
-    res.json({
-      confirmation: "success",
-      body: {
-        name: movieName.name,
-        movie_type: movieName.movie_type,
-        release_date: movieName.release_date,
-        director: movieName.director,
-        description: movieName.description,
-        rate: movieName.rate,
-        budget: movieName.budget,
-        main_actors: movieName.main_actors,
-        image_url: movieName.image_url,
-        time: returnedValue,
-      },
-    });
   })
   .get("/all_movies/:movie_type", async (req, res) => {
     try {
