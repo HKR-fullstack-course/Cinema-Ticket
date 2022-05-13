@@ -32,7 +32,6 @@ const MoviePage = () => {
   const [finalPrice, setMovieFinalPrice] = useState();
 
   const handleTimeChange = (e) => {
-    console.log(e.target);
     setMovieID(e.target.value);
     const searchIndex = time.find((t) => t._id === e.target.value);
     setPrice({ price: searchIndex.ticket_price });
@@ -48,7 +47,7 @@ const MoviePage = () => {
   };
 
   const bookTicket = () => {
-    if (seat == 0 || movie_id == "") return;
+    if (seat == 0 || movie_id == "" || people <= 0) return;
 
     api.post("/ticket/add_ticket", {
       customer_id: user,
