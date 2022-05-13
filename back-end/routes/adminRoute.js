@@ -6,14 +6,14 @@ const Admin = require("../model/Admin");
 const Movies = require("../model/Movie");
 
 const { userRegisterValidation } = require("../validation/user");
-const { varifyOwner } = require("../middleware/owner");
+const { verifyOwner } = require("../middleware/owner");
 
 const router = express.Router();
 
 router
-  .post("/create_admin", varifyOwner, async (req, res) => {
+  .post("/create_admin", verifyOwner, async (req, res) => {
     const { regError } = userRegisterValidation(req.body);
-    
+
     if (regError) {
       return res.status(400).json({
         error: error.details[0].message,
@@ -22,7 +22,7 @@ router
 
     const userExist = await User.findOne({ email: req.body.email });
     const adminExist = await Admin.findOne({ email: req.body.email });
-    
+
     if (userExist || adminExist) {
       return res.status(400).json({
         error: "Email exists",
@@ -39,7 +39,7 @@ router
       phonenumber: req.body.phonenumber,
       image_url: req.body.image_url,
     });
-    
+
     try {
       await admin.save();
       res.json({

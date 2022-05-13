@@ -1,15 +1,17 @@
-const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
-const varifyOwner = (req, res, next) => {
-  const token = req.header("owner-token");
+const verifyOwner = async (req, res, next) => {
+  const token = req.header("owner-pwd");
   if (!token) {
     return res.status(401).json("Access Denided");
   }
 
   try {
-    const verified = jwt.verify(token, process.env.MY_TOKEN);
-    if (verified.password == process.env.MY_PASSWORD) {
+    const verified = await bcrypt.compare(process.env.MY_PASSWORD, token);
+    if (verified) {
       next();
+    } else {
+      return res.status(401).json("Access Denided");
     }
   } catch (err) {
     console.log(err);
@@ -17,4 +19,4 @@ const varifyOwner = (req, res, next) => {
   }
 };
 
-module.exports = { varifyOwner };
+module.exports = { verifyOwner };
