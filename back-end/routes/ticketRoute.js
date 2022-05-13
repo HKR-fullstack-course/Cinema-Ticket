@@ -24,9 +24,12 @@ router
 
       customer.number_of_tickets = customer.number_of_tickets +=
         req.body.number_of_seats;
+      movieExist.number_of_seats = movieExist.number_of_seats -=
+        req.body.number_of_seats;
 
       await new_ticket.save();
       await customer.save();
+      await movieExist.save();
       customer;
       res.json({
         confirmation: "seccuss",
