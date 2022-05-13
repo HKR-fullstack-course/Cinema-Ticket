@@ -22,8 +22,8 @@ const MoviePage = () => {
   //Local movie Related data
   const [price, setPrice] = useState({ price: "" });
   const [seat, setNumberSeat] = useState();
-  const [movie_id, setMovieID] = useState();
-  const [people, setMoviePeoples] = useState({ people: "" });
+  const [movie_id, setMovieID] = useState("");
+  const [people, setMoviePeoples] = useState(0);
 
   //Message handlers
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,15 +32,15 @@ const MoviePage = () => {
   const [finalPrice, setMovieFinalPrice] = useState();
 
   const handleTimeChange = (e) => {
+    console.log(e.target);
     setMovieID(e.target.value);
-    const searchIndex = time.find((time) => time._id === e.target.value);
+    const searchIndex = time.find((t) => t._id === e.target.value);
     setPrice({ price: searchIndex.ticket_price });
     if (!searchIndex.number_of_seats) setNumberSeat(0);
     else setNumberSeat(searchIndex.number_of_seats);
   };
   const handleNumPeoplesChange = (e) => {
-    const result = e.target.value.replace(/\D/g, "");
-    setMoviePeoples({ people: result });
+    setMoviePeoples(e.target.value);
   };
 
   const totalCost = (a, b) => {
@@ -48,10 +48,12 @@ const MoviePage = () => {
   };
 
   const bookTicket = () => {
+    if (seat == 0 || movie_id == "") return;
+
     api.post("/ticket/add_ticket", {
       customer_id: user,
       movie_id: movie_id,
-      number_of_tickets: Math.floor(people),
+      number_of_seats: Math.floor(people),
     });
   };
 
@@ -97,9 +99,14 @@ const MoviePage = () => {
           <div className={styles.book_container}>
             <div className={styles.drop_down}>
               <select onChange={handleTimeChange} className={styles.drop_down}>
-                <option value=""> Pick a date</option>
-                {time.map((time) => (
-                  <option value={time._id}>{time.show_time}</option>
+                <option value={people} onChange={handleNumPeoplesChange}>
+                  {" "}
+                  Pick a date
+                </option>
+                {time.map((t, key) => (
+                  <option value={t._id} key={key}>
+                    {t.show_time}
+                  </option>
                 ))}
               </select>
             </div>
