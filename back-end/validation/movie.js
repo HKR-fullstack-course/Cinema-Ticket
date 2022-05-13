@@ -4,8 +4,8 @@ const movieValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(6).max(255).required(),
     release_date: Joi.string().required(),
-    director: Joi.string().min(8).max(255).required(),
-    movie_type: Joi.string().min(7).max(512),
+    director: Joi.string().required(),
+    movie_type: Joi.string(),
     description: Joi.string().max(1024),
     rate: Joi.number().default(-1),
     budget: Joi.number(),
