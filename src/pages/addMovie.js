@@ -5,6 +5,7 @@ import React from "react";
 import api from "../api/api";
 import { postImage } from "../api/postImage";
 import Footer from "../components/Footer";
+import { validateAddingMovie } from "./validate/validator";
 
 class AddMovie extends React.Component {
   state = {
@@ -25,6 +26,9 @@ class AddMovie extends React.Component {
     ticket_price: "",
     number_of_seats: 150,
     synopsis: "",
+    errMsg: "",
+    success: false,
+    msgState: "#c70038b0",
   };
 
   onImageChange = (e) => {
@@ -64,6 +68,27 @@ class AddMovie extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
 
+    const { error } = validateAddingMovie({
+      name: this.state.title,
+      release_date: this.state.releaseDate,
+      director: this.state.director,
+      show_long: this.state.movie_length,
+      budget: this.state.movie_budget,
+      movie_type: this.state.movie_genre,
+      show_time: this.state.time,
+      rate: this.state.rate,
+      age_range: this.state.min_age,
+      description: this.state.synopsis,
+      number_of_seats: this.state.number_of_seats,
+      ticket_price: this.state.ticket_price,
+    });
+
+    if (error) {
+      const er = error.details[0].message.slice(1, -1);
+      this.setState({ errMsg: er.slice(0, er.indexOf('"')) });
+      return;
+    }
+
     console.log(this.state.image);
 
     try {
@@ -91,9 +116,14 @@ class AddMovie extends React.Component {
         response.secure_url
       );
 
+      this.setState({
+        errMsg: `The Movie is added to database.`,
+        msgState: " #088501b0",
+      });
+
       console.log(resp);
-    } catch (e) {
-      console.log(e);
+    } catch (er) {
+      console.log(er);
     }
   };
 
@@ -126,7 +156,7 @@ class AddMovie extends React.Component {
                   id="title"
                   className="form-input"
                   placeholder="Enter the Title of the movie"
-                  required="required"
+                  required
                   onChange={(e) => this.setState({ title: e.target.value })}
                   value={this.state.title}
                 />
@@ -159,7 +189,7 @@ class AddMovie extends React.Component {
                 id="Director"
                 className="form-input"
                 placeholder="Enter the name of the director"
-                required="required"
+                required
                 onChange={(e) => this.setState({ director: e.target.value })}
                 value={this.state.director}
               />
@@ -175,7 +205,7 @@ class AddMovie extends React.Component {
                   id="length"
                   className="form-input"
                   placeholder="Enter how long is the movie"
-                  required="required"
+                  required
                   onChange={(e) =>
                     this.setState({ movie_length: e.target.value })
                   }
@@ -191,7 +221,7 @@ class AddMovie extends React.Component {
                   className="form-input"
                   id="budget"
                   placeholder="Enter the budget of the movie"
-                  required="required"
+                  required
                   onChange={(e) =>
                     this.setState({ movie_budget: e.target.value })
                   }
@@ -208,7 +238,7 @@ class AddMovie extends React.Component {
                   className="form-input"
                   id="leadActor"
                   placeholder="Enter the name of the lead actor"
-                  required="required"
+                  required
                   onChange={(e) => this.setState({ leadActor: e.target.value })}
                   value={this.state.leadActor}
                 />
@@ -337,7 +367,9 @@ class AddMovie extends React.Component {
                 className="form-input"
                 min="0"
                 max="200"
-                onChange={(e) => this.setState({ number_of_seats: e.target.value })}
+                onChange={(e) =>
+                  this.setState({ number_of_seats: e.target.value })
+                }
                 value={this.state.number_of_seats}
               />
             </div>
@@ -354,6 +386,14 @@ class AddMovie extends React.Component {
             </div>
           </div>
 
+          {this.state.errMsg ? (
+            <p className="errmsg" style={{background: this.state.msgState}}>
+              {this.state.errMsg}
+            </p>
+          ) : (
+            ""
+          )}
+
           <div className="form-footer">
             <span>* required</span>
             <button type="submit" className="btn">
@@ -361,7 +401,7 @@ class AddMovie extends React.Component {
             </button>
           </div>
         </form>
-        <Footer/>
+        <Footer />
       </>
     );
   }

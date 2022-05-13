@@ -36,3 +36,33 @@ export const validateLogin = (data) => {
   });
   return schema.validate(data);
 };
+
+export const validateAddingMovie = (data) => {
+  const schema = Joi.object({
+    name: Joi.string()
+      .required()
+      .min(6)
+      .label("Name Of The Movie is Required (at least 6 char)"),
+    release_date: Joi.string().label("Release Date is Required"),
+    director: Joi.string().required().label("Director name is Required"),
+    show_long: Joi.number()
+      .required()
+      .label("Show Long is Required Only as Number"),
+    budget: Joi.number().required().label("Budget is Required as Number"),
+    movie_type: Joi.string().required().label("Choose the Movie Genre"),
+    show_time: Joi.string().required().label("Please Add Screening Time"),
+    rate: Joi.number().required().label("Please add Rating"),
+    age_range: Joi.number()
+      .required()
+      .label("Please Add the Minimum age to view"),
+    description: Joi.string().required().label("Please Add Movie Synopsis"),
+    ticket_price: Joi.number()
+      .required()
+      .label("Please Add Ticket Price Only as Numbers"),
+    number_of_seats: Joi.number()
+      .required()
+      .min(0)
+      .label("Number Of Seats Must be Only Numbers"),
+  });
+  return schema.validate(data);
+};

@@ -78,6 +78,10 @@ h5 {
   font-size: large;
 }
 
+.label_drop_list {
+  font-size: x-large;
+}
+
 @media screen and (max-width: 970px) {
   .timing {
     font-size: 2rem;

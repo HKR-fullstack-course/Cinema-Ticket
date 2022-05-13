@@ -99,12 +99,19 @@ const MoviePage = () => {
             <div className={styles.drop_down}>
               <select onChange={handleTimeChange} className={styles.drop_down}>
                 <option value={people} onChange={handleNumPeoplesChange}>
-                  {" "}
-                  Pick a date
+                  <span className={styles.label_list}>Pick a date </span>
                 </option>
                 {time.map((t, key) => (
-                  <option value={t._id} key={key}>
-                    {t.show_time}
+                  <option
+                    value={t._id}
+                    key={key}
+                    className={styles.label_drop_list}
+                  >
+                    Date:
+                    {"     "} {t.show_time.split("T")[0]}
+                    {"     "}
+                    Time:
+                    {t.show_time.split("T")[1]}
                   </option>
                 ))}
               </select>
