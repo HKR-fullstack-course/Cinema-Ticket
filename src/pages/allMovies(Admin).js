@@ -103,7 +103,7 @@ class Users extends React.Component {
                       <td className="table-email table-price">
                         {item.ticket_price}
                       </td>
-                      <td className="table-nTicket hide">{item.age_range}</td>
+                      <td className="table-nTicket hide">{item.number_of_seats}</td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"
