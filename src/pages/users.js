@@ -16,10 +16,9 @@ class Users extends React.Component {
     deleted: false,
   };
 
-  constructor(props) {
-    super(props);
+  componentDidMount = () => {
     this.sendRequest();
-  }
+  };
 
   deleteUser = async (user_id, name) => {
     if (window.confirm(`Do you want to delete the user ${name} ?`)) {
@@ -126,7 +125,7 @@ class Users extends React.Component {
         ) : (
           <></>
         )}
-        <Footer/>
+        <Footer />
       </>
     );
   }

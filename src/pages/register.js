@@ -41,23 +41,6 @@ class Register extends React.Component {
     return res;
   };
 
-  // postImage = async (id) => {
-  //   const formData = new FormData();
-  //   formData.append("file", this.state.image);
-  //   formData.append("upload_preset", process.env.REACT_APP_PRESET_NAME);
-  //   formData.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-  //   formData.append("public_id", id);
-
-  //   const res = await fetch(
-  //     `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
-  //     {
-  //       method: "POST",
-  //       body: formData,
-  //     }
-  //   );
-  //   return res.json();
-  // };
-
   updateUserAvatar = async (id, url) => {
     const res = await api.put("/update_user", {
       user_id: id,

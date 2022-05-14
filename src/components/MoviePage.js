@@ -20,8 +20,8 @@ const MoviePage = () => {
   const [user, setUser] = useState();
 
   //Local movie Related data
-  const [price, setPrice] = useState({ price: "" });
-  const [seat, setNumberSeat] = useState();
+  const [price, setPrice] = useState({ price: 0 });
+  const [seat, setNumberSeat] = useState(0);
   const [movie_id, setMovieID] = useState("");
   const [people, setMoviePeoples] = useState(0);
 
@@ -29,7 +29,7 @@ const MoviePage = () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   //Result
-  const [finalPrice, setMovieFinalPrice] = useState();
+  const [finalPrice, setMovieFinalPrice] = useState(0);
 
   const handleTimeChange = (e) => {
     setMovieID(e.target.value);
@@ -38,8 +38,10 @@ const MoviePage = () => {
     if (!searchIndex.number_of_seats) setNumberSeat(0);
     else setNumberSeat(searchIndex.number_of_seats);
   };
+
   const handleNumPeoplesChange = (e) => {
     setMoviePeoples(e.target.value);
+    setNumberSeat(seat);
   };
 
   const totalCost = (a, b) => {
@@ -47,7 +49,7 @@ const MoviePage = () => {
   };
 
   const bookTicket = () => {
-    if (seat == 0 || movie_id == "" || people <= 0) return;
+    if (people <= 0 || movie_id == "" || seat - people < 0) return;
 
     api.post("/ticket/add_ticket", {
       customer_id: user,
@@ -62,13 +64,28 @@ const MoviePage = () => {
       setMove({ data: response.data.body });
       setMovieTime(response.data.body.time);
     });
-    if (seat === 0) setErrorMessage("There are no more seat available");
+    if (seat === 0)
+      setErrorMessage("Sorry! No more seats available on this date");
     else {
-      if (!people.people || !price.price)
+      if (people.people == 0 || price.price == 0) {
         setErrorMessage("Please fill the data");
-      else {
-        setMovieFinalPrice(totalCost(people.people, price.price));
-        setErrorMessage(`Seat left: ${seat} Total cost will be ${finalPrice} `);
+      }
+
+      // the following if-else-state still buggy
+      // where the user must enter the number
+      // of tickets before picking up date
+      else if (seat - people < 0) {
+        setErrorMessage(`Sorry! No enough seats to book`);
+      } else {
+        setMovieFinalPrice(totalCost(people, price.price));
+        // setNumberSeat(seat)
+        // setMoviFinalSeat(seat - people)
+        setErrorMessage(
+          `Seat left: ${seat - people} Total cost will be ${finalPrice} `
+        );
+        // setErrorMessage(
+        //     `Seat left: ${seat} Total cost will be ${finalPrice} `
+        //   );
       }
     }
   }, [_id, people.people, price.price, finalPrice, seat]);
@@ -98,8 +115,12 @@ const MoviePage = () => {
           <div className={styles.book_container}>
             <div className={styles.drop_down}>
               <select onChange={handleTimeChange} className={styles.drop_down}>
-                <option value={people} onChange={handleNumPeoplesChange}>
-                  <span className={styles.label_list}>Pick a date </span>
+                <option
+                  value={people}
+                  onChange={handleNumPeoplesChange}
+                  className={styles.label_list}
+                >
+                  Pick a date
                 </option>
                 {time.map((t, key) => (
                   <option
@@ -107,10 +128,7 @@ const MoviePage = () => {
                     key={key}
                     className={styles.label_drop_list}
                   >
-                    Date:
-                    {"     "} {t.show_time.split("T")[0]}
-                    {"     "}
-                    Time:
+                    Date: {t.show_time.split("T")[0]} Time:{" "}
                     {t.show_time.split("T")[1]}
                   </option>
                 ))}

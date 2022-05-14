@@ -96,7 +96,10 @@ class Users extends React.Component {
                         <img className="img" src={item.url} />
                       </td>
                       <td className="table-name">{item.name}</td>
-                      <td className="table-phone re-hide">{item.show_time}</td>
+                      <td className="table-phone re-hide">
+                        {item.show_time.split("T")[0]}{" "}
+                        {item.show_time.split("T")[1]}
+                      </td>
                       <td className="table-email table-price">
                         {item.ticket_price}
                       </td>
@@ -130,7 +133,7 @@ class Users extends React.Component {
         ) : (
           <></>
         )}
-        <Footer/>
+        <Footer />
       </>
     );
   }

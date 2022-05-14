@@ -39,10 +39,7 @@ export const validateLogin = (data) => {
 
 export const validateAddingMovie = (data) => {
   const schema = Joi.object({
-    name: Joi.string()
-      .required()
-      .min(6)
-      .label("Name Of The Movie is Required (at least 6 char)"),
+    name: Joi.string().required().label("Name Of The Movie is Required"),
     release_date: Joi.string().label("Release Date is Required"),
     director: Joi.string().required().label("Director name is Required"),
     show_long: Joi.number()
