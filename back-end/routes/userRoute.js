@@ -3,7 +3,8 @@ const bcrypt = require("bcryptjs");
 
 const User = require("../model/User");
 const Admin = require("../model/Admin");
-const Img = require("../model/Image");
+const Ticket = require("../model/Ticket")
+
 const { userRegisterValidation } = require("../validation/user");
 
 const router = express.Router();
@@ -89,6 +90,7 @@ router
         body: "Error occue while updating",
       });
     }
-  });
+  })
+
 
 module.exports = router;
