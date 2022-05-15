@@ -10,7 +10,7 @@ const verifyIsUser = async (req, res, next) => {
   try {
     const verified = jwt.verify(token, process.env.CLIENT_TOKEN);
     const user = await User.findById(verified._id);
-    if (verified && user) {
+    if (verified) {
       next();
     } else {
       return res.status(401).json("Access Denided");

@@ -92,6 +92,39 @@ router
       });
     }
   })
+  .get("/tickets", async (req, res) => {
+    const tickets = await Ticket.find({ customer_id: req.query.customer_id });
+
+    const body = await Promise.all(
+      tickets.map(async (item) => {
+        const movie = await Movie.find({ _id: item.movie_id });
+
+        return {
+          _id: movie[0]._id,
+          name: movie[0].name,
+          type: movie[0].type,
+          price: movie[0].ticket_price,
+          screening: movie[0].show_time,
+          url: movie[0].image_url,
+        };
+      })
+    );
+
+    if (!body.length) {
+      return res.status(400).json({
+        confirmation: "success",
+        body: `The user has no tickets in db`,
+      });
+    }
+    try {
+      res.status(200).json({ confirmation: "success", body });
+    } catch (error) {
+      res.status(404).json({
+        confirmation: "fail",
+        error: "Error occured while requesting",
+      });
+    }
+  })
   .delete("/delete_ticket", verifyIsUser, async (req, res) => {
     try {
       const ticket = await Ticket.findOne({ _id: req.body.ticket_id });
