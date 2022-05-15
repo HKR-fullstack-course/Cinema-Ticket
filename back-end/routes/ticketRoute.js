@@ -96,16 +96,19 @@ router
     try {
       const ticket = await Ticket.findOne({ _id: req.body.ticket_id });
       const movie = await Movie.findOne({ _id: req.body.movie_id });
+      const user = await User.findOne({ _id: req.body.customer_id });
 
-      if (!ticket || !movie) {
+      if (!(ticket && movie && user)) {
         return res.status(400).json({
-          error: "Fail to Find Ticket",
+          error: "Fail to Find ids",
         });
       }
 
       movie.number_of_seats = movie.number_of_seats += 1;
+      user.number_of_tickets = user.number_of_tickets -= 1;
       await ticket.deleteOne();
       await movie.save();
+      await user.save();
 
       res.status(201).json({
         confirmation: "success",
