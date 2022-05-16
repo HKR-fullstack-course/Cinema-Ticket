@@ -27,6 +27,7 @@ const MoviePage = () => {
 
   //Message handlers
   const [errorMessage, setErrorMessage] = useState("");
+  const [confirmMessage, setConfirmMessage] = useState("")
 
   //Result
   const [finalPrice, setMovieFinalPrice] = useState(0);
@@ -55,7 +56,8 @@ const MoviePage = () => {
       customer_id: user,
       movie_id: movie_id,
       number_of_seats: Math.floor(people),
-    });
+    })
+      .then(success => { setConfirmMessage(success.data.body) });
   };
 
   useEffect(() => {
@@ -141,6 +143,7 @@ const MoviePage = () => {
               className={styles.price_list}
             />
             <p>{errorMessage}</p>
+            <p>{confirmMessage}</p>
             <button onClick={bookTicket} className={styles.btn}>
               Book Ticket
             </button>
