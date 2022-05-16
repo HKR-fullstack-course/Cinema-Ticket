@@ -9,6 +9,7 @@ const Sidebar = ({isOpen,toggle}) => {
         </Icon>
         <SidebarWrapper>
             <SidebarMenu>
+                <SidebarLink to='/' >Home</SidebarLink>
                 <SidebarLink to='/movie_list' >Movies</SidebarLink>
                 <SidebarLink to='/add_movie'>Add Movie</SidebarLink>
                 {/* <SidebarLink to='/about'>About</SidebarLink> */}

@@ -32,6 +32,7 @@ const NavbarUser = () => {
           <FaBars />
         </Bars>
         <NavMenu>
+          <NavLink to="/">Home</NavLink>
           <NavLink to="/movies">Movies</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/tickets">My Tickets</NavLink>
