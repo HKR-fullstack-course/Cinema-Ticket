@@ -47,16 +47,16 @@ router
 
     const body = await Promise.all(
       tickets.map(async (item) => {
-        const movie = await Movie.find({ _id: item.movie_id });
+        const movie = await Movie.findOne({ _id: item.movie_id });
 
         return {
           ticket_id: item._id,
-          movie_id: movie[0]._id,
-          name: movie[0].name,
-          type: movie[0].type,
-          price: movie[0].ticket_price,
-          screening: movie[0].show_time,
-          url: movie[0].image_url,
+          movie_id: movie._id,
+          name: movie.name,
+          type: movie.type,
+          price: movie.ticket_price,
+          screening: movie.show_time,
+          url: movie.image_url,
         };
       })
     );
