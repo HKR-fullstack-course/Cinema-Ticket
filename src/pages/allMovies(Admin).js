@@ -8,7 +8,6 @@ import Auth from "../_helper/Auth";
 import Footer from "../components/Footer";
 
 class Users extends React.Component {
-  
   state = {
     offset: 0,
     data: [],
@@ -111,6 +110,9 @@ class Users extends React.Component {
                       </td>
                       <td className="table-email table-price">
                         {item.ticket_price}
+                      </td>
+                      <td className="table-nTicket hide">
+                        {item.number_of_seats}
                       </td>
                       <td className="table-nTicket hide">
                         {item.number_of_seats}
