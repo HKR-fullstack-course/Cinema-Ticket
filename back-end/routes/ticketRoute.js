@@ -34,67 +34,14 @@ router
       await movieExist.save();
       customer;
       res.json({
-        confirmation: "seccuss",
+        confirmation: "success",
         body: "New ticket is added to db",
       });
     } catch (error) {
       res.status(404).json(error);
     }
   })
-  // to return all tickets that belong to user
-
-  // .get("/get_tickets", async (req, res) => {
-  //   const user_tickets = await Ticket.find({
-  //     customer_id: req.body.customer_id,
-  //   });
-
-  //   if (!user_tickets) {
-  //     return res.status(400).json({
-  //       confirmation: "success",
-  //       body: `The user has no tickets in db`,
-  //     });
-  //   }
-
-  //   res.status(200).json({
-  //     confirmation: "seccuss",
-  //     user_booking: user_tickets.length,
-  //   });
-  // })
   .get("/user_tickets", verifyIsUser, async (req, res) => {
-    const tickets = await Ticket.find({ customer_id: req.query.customer_id });
-
-    const body = await Promise.all(
-      tickets.map(async (item) => {
-        const movie = await Movie.find({ _id: item.movie_id });
-
-        return {
-          ticket_id: item._id,
-          movie_id: movie[0]._id,
-          name: movie[0].name,
-          type: movie[0].type,
-          price: movie[0].ticket_price,
-          screening: movie[0].show_time,
-          url: movie[0].image_url,
-        };
-      })
-    );
-
-    if (!body.length) {
-      return res.status(400).json({
-        confirmation: "success",
-        body: `The user has no tickets in db`,
-      });
-    }
-    try {
-      res.status(200).json({ confirmation: "success", body });
-    } catch (error) {
-      res.status(404).json({
-        confirmation: "fail",
-        error: "Error occured while requesting",
-      });
-    }
-  })
-  .get("/tickets", async (req, res) => {
     const tickets = await Ticket.find({ customer_id: req.query.customer_id });
 
     const body = await Promise.all(

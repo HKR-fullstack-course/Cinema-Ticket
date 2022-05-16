@@ -7,6 +7,7 @@ const Movies = require("../model/Movie");
 
 const { userRegisterValidation } = require("../validation/user");
 const { verifyOwner } = require("../middleware/owner");
+const { verifyIsAdmin } = require("../middleware/admin");
 
 const router = express.Router();
 
@@ -51,7 +52,7 @@ router
       res.status(400).json(error);
     }
   })
-  .get("/all_users", async (req, res) => {
+  .get("/all_users", verifyIsAdmin, async (req, res) => {
     const users = await User.find({});
 
     if (!users) {
@@ -81,7 +82,7 @@ router
       res.status(400).json(error);
     }
   })
-  .get("/all_movies_table", async (req, res) => {
+  .get("/all_movies_table", verifyIsAdmin, async (req, res) => {
     const movies = await Movies.find({});
 
     if (!movies) {
@@ -112,7 +113,7 @@ router
       res.status(400).json(error);
     }
   })
-  .delete("/delete_user_account", async (req, res) => {
+  .delete("/delete_user_account", verifyIsAdmin, async (req, res) => {
     try {
       const user = await User.findByIdAndDelete({ _id: req.body._id });
 
