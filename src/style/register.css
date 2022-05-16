@@ -1,0 +1,38 @@
+.form-register-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 50rem;
+  border: 2px solid black;
+  border-radius: 20px;
+  width: 40%;
+  margin: 5rem auto;
+  font: 1.5rem "Sora", sans-serif;
+  background: #f3f3f3;
+
+  margin-top: 2rem;
+}
+
+.head-register {
+  justify-content: center;
+  margin: 15px auto;
+}
+
+.register-group {
+  margin: 30px;
+  margin-left: 20px;
+}
+.register-input {
+  margin-right: 0;
+  position: relative;
+  float: right;
+  height: 5vh;
+  width: 50%;
+  font-size: 1.2rem;
+}
+
+.errmsg {
+  margin: 2rem auto;
+  width: 90%;
+  font-size: medium;
+}

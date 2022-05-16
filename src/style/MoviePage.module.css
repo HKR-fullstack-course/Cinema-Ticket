@@ -1,0 +1,95 @@
+.container {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  margin-right: 20%;
+  margin-bottom: 0;
+  margin-left: 20%;
+  font-size: 2.1rem;
+  box-sizing: 0;
+}
+
+.name_label {
+  font-size: 4rem;
+  text-align: center;
+  margin: 4rem auto;
+}
+
+h5 {
+  margin: 2rem;
+  text-align: left;
+}
+
+.book_container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  display: block;
+}
+
+.description {
+  padding: 10px;
+  text-align: justify;
+  margin-left: 2rem;
+  margin-bottom: 3rem;
+  display: block;
+}
+
+.timing {
+  padding: 0;
+  width: 100%;
+
+  margin: 10% auto 2rem;
+  text-align: center;
+  border-bottom: 2px solid red;
+  width: 50%;
+}
+
+.drop_down {
+  width: 100%;
+  height: 4rem;
+  font-size: large;
+  font-family: Arial;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  cursor: inherit;
+  line-height: inherit;
+  margin: 2rem auto;
+}
+
+.price_list {
+  margin: 2rem auto;
+  width: 100%;
+  height: 4rem;
+  font-size: larger;
+}
+
+.btn {
+  width: 20rem;
+  margin: 10rem auto;
+  height: 4rem;
+  background-color: red;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+  color: #fff;
+  font-size: large;
+}
+
+.label_drop_list {
+  font-size: x-large;
+}
+
+@media screen and (max-width: 970px) {
+  .timing {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 790px) {
+  .timing {
+    display: contents;
+  }
+}

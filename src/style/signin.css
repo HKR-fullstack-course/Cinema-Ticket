@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@1,200;1,900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: 0;
+  scrollbar-width: none;
+}
+
+.form-login-container {
+  border: 2px solid black;
+  border-radius: 20px;
+  font: 1.5rem "Sora", sans-serif;
+  display: flex;
+  align-items: left;
+  width: 40%;
+  flex-direction: column;
+  margin: 5rem auto;
+  height: 30rem;
+  position: relative;
+  background: #f3f3f3;
+
+}
+
+.header {
+  margin: 1rem auto;
+  color:#C70039;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.input-group {
+  margin: 3rem 2rem;
+  width: 100%;
+  position: relative;
+}
+
+.login-input {
+  width: 50%;
+  margin-left: 2rem;
+  height: 2.2rem;
+  font-size: 1rem;
+  /* justify-content: right;    
+    align-self: flex-end; */
+  flex-shrink: 1;
+  position: absolute;
+  margin-right: 5px;
+  right: 15%;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.login-btn {
+  width: 30%;
+  height: 3rem;
+  border-radius: 10px;
+  position: absolute;
+  left: 50%;
+  top: 90%;
+  transform: translate(-50%, -50%);
+  background: #C70039;;
+  color: #fff;
+  font-family:'Source Sans Pro', sans-serif;
+  font-size: 30px;
+  font-style: bold;
+}
+
+.errmsg {
+  margin: .5rem auto;
+  background: #c70038b0;;
+  border-radius: 10px;
+  width: 90%;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.singup-label{
+  width: 100%;
+  font-size: medium;
+  position: absolute;
+  right: 0%;
+  top: 80%;
+  transform: translate(2%, -50%);
+}
+#pic{
+  margin-left: 66%;
+  margin-top: -245px;
+}
+
+#spider{
+  margin-right: 66%;
+  margin-top: -916px;
+  padding-bottom: 280px;
+}
+@media screen and (max-width: 1000px) {
+  .form-login-container {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .form-login-container {
+    width: 80%;
+    height: 25rem;
+}
+}
+
+
+@media screen and (max-width: 480px) {
+    .form-login-container {
+        font-size: 1.2rem;
+      width: 95%;
+    }
+  }
+  

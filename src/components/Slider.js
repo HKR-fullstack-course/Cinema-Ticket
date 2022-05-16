@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import slider_style from "../style/Slider.css"
+import slider_style from "../style/Slider.module.css";
 
 import api from "../api/api";
 
@@ -18,7 +18,7 @@ export default class FilmSlider extends Component {
 
     slider() { //Function to loop through and make each cell
         return this.state.movies.map((movie, index) =>
-            <Card name={movie.name} _id={movie._id} key={index} rate={movie.rate} show_time={movie.show_time} movie_type={movie.movie_type} />
+            <Card name={movie.name} _id={movie._id} image={movie.image_url} key={index} />
         );
     }
 
@@ -32,7 +32,7 @@ export default class FilmSlider extends Component {
             autoPlay: true
         };
         return (
-            <div className="slider_style container">
+            <div className={slider_style.container}>
                 <h2> {this.props.title}</h2>
                 <Slider {...settings}>
                     {this.slider()}

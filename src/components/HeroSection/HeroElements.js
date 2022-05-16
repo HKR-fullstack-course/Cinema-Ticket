@@ -42,18 +42,6 @@ export const HeroContent=styled.div`
     top:280px;
     left:40px;
 `
-export const HeroH1=styled.h1`
-color:#fff;
-font-size:64px;
-text-align:center;
-
-@media screen and (max-width:768px){
-    font-size:46px;
-}
-@media screen and (max-width:480px){
-    font-size:36px;
-}
-`
 export const HeroH2=styled.h2`
     color:#fff;
     font-size:48px;

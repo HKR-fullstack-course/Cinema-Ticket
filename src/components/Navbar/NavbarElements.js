@@ -9,6 +9,7 @@ export const Nav = styled.nav`
   justify-content: space-between;
   padding: 0.5rem calc((100vw - 1000px) / 2);
   z-index: 10;
+ 
 
  
 `;
@@ -21,7 +22,6 @@ export const NavLink = styled(Link)`
   padding: 0 1rem;
   height: 100%;
   cursor: pointer;
-
   &.active {
     color: #15cdfc;
   }
@@ -31,7 +31,7 @@ export const Bars = styled(FaBars)`
   display: none;
   color: #fff;
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
     display: block;
     position: absolute;
     top: 0;
@@ -54,7 +54,7 @@ export const NavMenu = styled.div`
   /* width: 100vw;
   white-space: nowrap; */
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
     display: none;
   }
 `;
@@ -68,7 +68,7 @@ export const NavBtn = styled.nav`
   /* justify-content: flex-end;
   width: 100vw; */
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 800px) {
     display: none;
   }
 `;
@@ -85,7 +85,7 @@ export const NavBtnLink = styled(Link)`
   text-decoration: none;
 
   /* Second Nav */
-  margin-left: 24px;
+  margin-left: 100px;
 
   &:hover {
     transition: all 0.2s ease-in-out;
