@@ -19,17 +19,18 @@ router
         });
       }
 
-      const new_ticket = Ticket({
-        customer_id: req.body.customer_id,
-        movie_id: req.body.movie_id,
-      });
+      for (let i = 0; i < req.body.number_of_seats; i++) {
+        await new Ticket({
+          customer_id: req.body.customer_id,
+          movie_id: req.body.movie_id,
+        }).save();
+      }
 
       customer.number_of_tickets = customer.number_of_tickets +=
         req.body.number_of_seats;
       movieExist.number_of_seats = movieExist.number_of_seats -=
         req.body.number_of_seats;
 
-      await new_ticket.save();
       await customer.save();
       await movieExist.save();
       customer;
@@ -77,9 +78,9 @@ router
   })
   .delete("/delete_ticket", verifyIsUser, async (req, res) => {
     try {
-      const ticket = await Ticket.findOne({ _id: req.body.ticket_id });
+      const ticket = await Ticket.find({ movie_id: req.body.movie_id });
       const movie = await Movie.findOne({ _id: req.body.movie_id });
-      const user = await User.findOne({ _id: req.body.customer_id });
+      const user = await User.findOne({ _id: ticket[0].customer_id });
 
       if (!(ticket && movie && user)) {
         return res.status(400).json({
@@ -87,15 +88,19 @@ router
         });
       }
 
-      movie.number_of_seats = movie.number_of_seats += 1;
-      user.number_of_tickets = user.number_of_tickets -= 1;
-      await ticket.deleteOne();
+      movie.number_of_seats = movie.number_of_seats += ticket.length;
+      user.number_of_tickets = user.number_of_tickets -= ticket.length;
+
+      ticket.forEach((t) => {
+        t.delete();
+      });
+
       await movie.save();
       await user.save();
 
       res.status(201).json({
         confirmation: "success",
-        body: "Ticket is deleted",
+        body: ticket,
       });
     } catch (error) {
       console.log(error);
