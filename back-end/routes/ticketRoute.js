@@ -47,7 +47,9 @@ router
 
     const body = await Promise.all(
       tickets.map(async (item) => {
-        const movie = await Movie.findOne({ _id: item.movie_id });
+        let movie = await Movie.findOne({ _id: item.movie_id });
+
+        if (!movie) return;
 
         return {
           ticket_id: item._id,
