@@ -66,31 +66,29 @@ const MoviePage = () => {
       setMove({ data: response.data.body });
       setMovieTime(response.data.body.time);
     });
-    if (seat === 0)
-      setErrorMessage("Sorry! No more seats available on this date");
-    else {
-      if (people.people == 0 || price.price == 0) {
-        setErrorMessage("Please fill the data");
-      }
 
-      // the following if-else-state still buggy
-      // where the user must enter the number
-      // of tickets before picking up date
-      else if (seat - people < 0) {
-        setErrorMessage(`Sorry! No enough seats to book`);
-      } else {
-        setMovieFinalPrice(totalCost(people, price.price));
-        // setNumberSeat(seat)
-        // setMoviFinalSeat(seat - people)
-        setErrorMessage(
-          `Seat left: ${seat - people} Total cost will be ${finalPrice} `
-        );
-        // setErrorMessage(
-        //     `Seat left: ${seat} Total cost will be ${finalPrice} `
-        //   );
-      }
+    if (people.people == 0 || price.price == 0) {
+      setErrorMessage("Please fill the data");
     }
-  }, [_id, people.people, price.price, finalPrice, seat]);
+
+    // the following if-else-state still buggy
+    // where the user must enter the number
+    // of tickets before picking up date
+    else if (seat - people < 0) {
+      setErrorMessage(`Sorry! No enough seats to book`);
+    } else {
+      setMovieFinalPrice(totalCost(people, price.price));
+      // setNumberSeat(seat)
+      // setMoviFinalSeat(seat - people)
+      setErrorMessage(
+        `Seat left: ${seat - people} Total cost will be ${finalPrice} `
+      );
+      // setErrorMessage(
+      //     `Seat left: ${seat} Total cost will be ${finalPrice} `
+      //   );
+    }
+  }
+    , [_id, people.people, price.price, finalPrice, seat]);
 
   return (
     <div>
@@ -113,44 +111,47 @@ const MoviePage = () => {
           <h5>
             Actors: <br /> {[movie.data.main_actors].toString()}
           </h5>
-          <h3 className={styles.timing}>Select The Time</h3>
-          <div className={styles.book_container}>
-            <div className={styles.drop_down}>
-              <select onChange={handleTimeChange} className={styles.drop_down}>
-                <option
-                  value={people}
-                  onChange={handleNumPeoplesChange}
-                  className={styles.label_list}
-                >
-                  Pick a date
-                </option>
-                {time.map((t, key) => (
+          <h3 className={styles.timing}>Select The Number of Seats</h3>
+          <input
+            type="number"
+            min="0"
+            onChange={handleNumPeoplesChange}
+            className={styles.price_list}
+          />
+          {people > 0 ?
+            <div className={styles.book_container}>
+              <h3 className={styles.timing}>Select The Time</h3>
+              <div className={styles.drop_down}>
+                <select onChange={handleTimeChange} className={styles.drop_down}>
                   <option
-                    value={t._id}
-                    key={key}
-                    className={styles.label_drop_list}
+                    value={people}
+                    onChange={handleNumPeoplesChange}
+                    className={styles.label_list}
                   >
-                    Date: {t.show_time.split("T")[0]} Time:{" "}
-                    {t.show_time.split("T")[1]}
+                    Pick a date
                   </option>
-                ))}
-              </select>
-            </div>
-            <input
-              type="number"
-              min="0"
-              onChange={handleNumPeoplesChange}
-              className={styles.price_list}
-            />
-            <p>{errorMessage}</p>
-            <p>{confirmMessage}</p>
-            <button onClick={bookTicket} className={styles.btn}>
-              Book Ticket
-            </button>
-          </div>
+                  {time.map((t, key) => (
+                    <option
+                      value={t._id}
+                      key={key}
+                      className={styles.label_drop_list}
+                    >
+                      Date: {t.show_time.split("T")[0]} Time:{" "}
+                      {t.show_time.split("T")[1]}
+                    </option>
+                  ))}
+                </select>
+                <p>{errorMessage}</p>
+                <p>{confirmMessage}</p>
+                <button onClick={bookTicket} className={styles.btn}>
+                  Book Ticket
+                </button>
+              </div>
+            </div> : <></>}
         </div>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 
