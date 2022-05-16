@@ -31,13 +31,18 @@ class TicketTable extends React.Component {
       },
     });
 
+    const uniqueSet = [
+      ...new Map(response.data.body.map((item) => [item.name.trim(), item])).values(),
+    ];
+
+
     this.setState({
-      data: response.data.body.slice(
+      data: uniqueSet.slice(
         this.state.offset,
         this.state.offset + this.state.perPage,
         (this.state.currentPage = 1)
       ),
-      response: response.data.body,
+      response: uniqueSet,
     });
   };
 
