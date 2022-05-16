@@ -31,6 +31,8 @@ class TicketTable extends React.Component {
       },
     });
 
+    console.log(response.data.body);
+
     this.setState({
       data: response.data.body.slice(
         this.state.offset,
@@ -41,10 +43,18 @@ class TicketTable extends React.Component {
     });
   };
 
-  deleteTicket = async (movie_id) => {
+  deleteTicket = async (ticket_id, movie_id) => {
+    console.log(localStorage.getItem("auth-token"));
     if (window.confirm(`Do you want the ticket ?`)) {
-      await api.delete("/delete_user_account", {
-        data: { _id: "user_id" },
+      await api.delete("/ticket/delete_ticket", {
+        data: {
+          ticket_id,
+          movie_id,
+          customer_id: Auth.getID(),
+        },
+        headers: {
+          "auth-token": localStorage.getItem("auth-token"),
+        },
       });
 
       // forceUpdate()   <= this method doesn't work for a reason!
@@ -110,7 +120,7 @@ class TicketTable extends React.Component {
                         <button
                           className="delete-btn"
                           onClick={() => {
-                            this.deleteTicket(item._id);
+                            this.deleteTicket(item.ticket_id, item.movie_id);
                           }}
                         >
                           Delete
