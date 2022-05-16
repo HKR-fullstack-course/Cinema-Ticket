@@ -73,7 +73,6 @@ class Register extends React.Component {
     }
 
     try {
-      
       const body = {
         name: this.state.name,
         email: this.state.email,
@@ -100,6 +99,8 @@ class Register extends React.Component {
     } catch (err) {
       if (!err?.response) {
         this.setState({ errMsg: "No Server Response" });
+      } else if (err.response?.status === 400) {
+        setErrMsg("Email exists!");
       } else if (err.response?.status === 401) {
         this.setState({ errMsg: "No Server Response" });
       } else {
@@ -220,13 +221,14 @@ class Register extends React.Component {
           </section>
         )}
         <div id="spider">
-            <img
-                  src={require("../images/spider.png")}
-                  alt="logo" 
-                  width="400px" height="707px"
-                  />
-      </div>
-      <Footer/>
+          <img
+            src={require("../images/spider.png")}
+            alt="logo"
+            width="400px"
+            height="707px"
+          />
+        </div>
+        <Footer />
       </>
     );
   };
