@@ -22,33 +22,29 @@ class TicketTable extends React.Component {
   };
 
   sendRequest = async () => {
-    const response = await api.get("/ticket/user_tickets", {
+    const response = await api.get("/ticket/tickets", {
       params: {
         customer_id: Auth.getID(),
       },
       Headers: {
-        api_key: localStorage.getItem('auth-token')
-      }
-    }).then(er => {
-      console.log(er);
-    }).catch(err => {
-      console.log(err);
-    })
-    console.log(response);
-    // this.setState({
-    //   data: response.data.body.slice(
-    //     this.state.offset,
-    //     this.state.offset + this.state.perPage,
-    //     (this.state.currentPage = 1)
-    //   ),
-    //   response: response.data.body,
-    // });
+        api_key: localStorage.getItem("auth-token"),
+      },
+    });
+
+    this.setState({
+      data: response.data.body.slice(
+        this.state.offset,
+        this.state.offset + this.state.perPage,
+        (this.state.currentPage = 1)
+      ),
+      response: response.data.body,
+    });
   };
 
-  deleteUser = async (user_id, name) => {
-    if (window.confirm(`Do you want to delete the user ${name} ?`)) {
+  deleteTicket = async (movie_id) => {
+    if (window.confirm(`Do you want the ticket ?`)) {
       await api.delete("/delete_user_account", {
-        data: { _id: user_id },
+        data: { _id: "user_id" },
       });
 
       // forceUpdate()   <= this method doesn't work for a reason!
@@ -90,9 +86,8 @@ class TicketTable extends React.Component {
                 <tr>
                   <th className="table-url hide "></th>
                   <th className="table-name">Movie</th>
-                  <th className="table-email">Time</th>
-                  <th className="table-phone re-hide">Phone number</th>
-                  <th className="table-nTicket hide">Number of Tickets</th>
+                  <th className="table-email">Screening Time</th>
+                  <th className="table-phone re-hide">Ticket Price</th>
                   <th className="table-btn"></th>
                 </tr>
               </thead>
@@ -104,16 +99,18 @@ class TicketTable extends React.Component {
                         <img className="img" src={item.url} />
                       </td>
                       <td className="table-name">{item.name}</td>
-                      <td className="table-email">{item.email}</td>
-                      {/* <td className="table-phone re-hide">
-                        {item.phonenumber}
-                      </td> */}
-                      {/* <td className="table-nTicket hide">{item.n_tickets}</td> */}
+                      <td className="table-email">
+                        {item.screening.split("T")[0]}{" "}
+                        {item.screening.split("T")[1]}
+                      </td>
+                      <td className="table-phone re-hide">
+                        <span className="mit">{item.price}</span>
+                      </td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"
                           onClick={() => {
-                            this.deleteUser(item._id, item.name);
+                            this.deleteTicket(item._id);
                           }}
                         >
                           Delete

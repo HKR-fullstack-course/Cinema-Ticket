@@ -23,7 +23,7 @@ const About = () => {
       <img
                   src={require("../images/mobile.png")}
                   alt="logo" 
-                  class="center"  />
+                  className="center"  />
         <br/> <br/> <br/> <br/> <br/>
           <center><p id="ptext">The website was designed to work on any screen size available, wether we are talking about phone , tablet or pc monitor. We designed it to be responsive and display content propely regardless of wich device you are using. One of the key to make it work was to use the framework React js, it provided flexibility for the developement team 
           and many external library so we could re-used some components. Since it is a React web based application we can imagined a future where Discovery cinema can be optimized for tv-application or IOS and Android app without too much suplementary ressources.  </p></center>
