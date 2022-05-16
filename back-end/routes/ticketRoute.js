@@ -5,7 +5,7 @@ const User = require("../model/User");
 const Ticket = require("../model/Ticket");
 const Movie = require("../model/Movie");
 
-const verifyIsUser = require("../middleware/user");
+const { verifyIsUser } = require("../middleware/user");
 
 router
   .post("/add_ticket", async (req, res) => {
@@ -42,6 +42,7 @@ router
     }
   })
   // to return all tickets that belong to user
+
   // .get("/get_tickets", async (req, res) => {
   //   const user_tickets = await Ticket.find({
   //     customer_id: req.body.customer_id,
@@ -67,7 +68,8 @@ router
         const movie = await Movie.find({ _id: item.movie_id });
 
         return {
-          _id: movie[0]._id,
+          ticket_id: item._id,
+          movie_id: movie[0]._id,
           name: movie[0].name,
           type: movie[0].type,
           price: movie[0].ticket_price,
@@ -100,7 +102,8 @@ router
         const movie = await Movie.find({ _id: item.movie_id });
 
         return {
-          _id: movie[0]._id,
+          ticket_id: item._id,
+          movie_id: movie[0]._id,
           name: movie[0].name,
           type: movie[0].type,
           price: movie[0].ticket_price,

@@ -20,4 +20,4 @@ const verifyIsUser = async (req, res, next) => {
   }
 };
 
-module.exports = verifyIsUser;
+module.exports = { verifyIsUser };
