@@ -11,7 +11,7 @@ const Sidebar = ({isOpen,toggle}) => {
             <SidebarMenu>
                 <SidebarLink to='/movie_list' >Movies</SidebarLink>
                 <SidebarLink to='/add_movie'>Add Movie</SidebarLink>
-                <SidebarLink to='/about'>About</SidebarLink>
+                {/* <SidebarLink to='/about'>About</SidebarLink> */}
                 <SidebarLink to='/users'>Users</SidebarLink>
                 <SidebarLink to='/all_movies'>Table Of Movies</SidebarLink>
             </SidebarMenu>

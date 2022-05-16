@@ -23,7 +23,12 @@ class Users extends React.Component {
   deleteUser = async (user_id, name) => {
     if (window.confirm(`Do you want to delete the user ${name} ?`)) {
       await api.delete("/delete_user_account", {
-        data: { _id: user_id },
+        headers: {
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+        data: {
+          _id: user_id,
+        },
       });
 
       // forceUpdate()   <= this method doesn't work for a reason!
@@ -32,7 +37,12 @@ class Users extends React.Component {
   };
 
   sendRequest = async () => {
-    const response = await api.get("all_users");
+    const response = await api.get("all_users", {
+      headers: {
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    });
+
     this.setState({
       data: response.data.body.slice(
         this.state.offset,
@@ -88,7 +98,11 @@ class Users extends React.Component {
                   return (
                     <tr key={index}>
                       <td className="table-url hide">
-                        <img className="img" src={item.url} />
+                        <img
+                          className="img"
+                          src={item.url}
+                          alt={item.name + " url"}
+                        />
                       </td>
                       <td className="table-name">{item.name}</td>
                       <td className="table-email">{item.email}</td>

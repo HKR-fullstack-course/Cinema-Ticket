@@ -8,6 +8,7 @@ import Auth from "../_helper/Auth";
 import Footer from "../components/Footer";
 
 class Users extends React.Component {
+  
   state = {
     offset: 0,
     data: [],
@@ -36,7 +37,11 @@ class Users extends React.Component {
   }
 
   sendRequest = async () => {
-    const response = await api.get("all_movies_table");
+    const response = await api.get("all_movies_table", {
+      headers: {
+        "auth-token": localStorage.getItem("auth-token"),
+      },
+    });
 
     this.setState({
       data: response.data.body.slice(
@@ -93,7 +98,11 @@ class Users extends React.Component {
                   return (
                     <tr key={index}>
                       <td className="table-url hide">
-                        <img className="img" src={item.url} />
+                        <img
+                          className="img"
+                          src={item.url}
+                          alt={item.name + " url"}
+                        />
                       </td>
                       <td className="table-name">{item.name}</td>
                       <td className="table-phone re-hide">
@@ -103,7 +112,9 @@ class Users extends React.Component {
                       <td className="table-email table-price">
                         {item.ticket_price}
                       </td>
-                      <td className="table-nTicket hide">{item.age_range}</td>
+                      <td className="table-nTicket hide">
+                        {item.number_of_seats}
+                      </td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"

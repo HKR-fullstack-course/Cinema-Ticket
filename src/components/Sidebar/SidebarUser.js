@@ -11,7 +11,7 @@ const Sidebar = ({isOpen,toggle}) => {
             <SidebarMenu>
                 <SidebarLink to='/movies' >Movies</SidebarLink>
                 <SidebarLink to='/about'>About</SidebarLink>
-                <SidebarLink to='/services'>Buy Ticket</SidebarLink>
+                <SidebarLink to='/tickets'>Buy Ticket</SidebarLink>
             </SidebarMenu>
             <SideBtnWrap>
                 <SidebarRoute  replace

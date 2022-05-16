@@ -22,16 +22,14 @@ class TicketTable extends React.Component {
   };
 
   sendRequest = async () => {
-    const response = await api.get("/ticket/tickets", {
+    const response = await api.get("/ticket/user_tickets", {
+      headers: {
+        "auth-token": localStorage.getItem("auth-token"),
+      },
       params: {
         customer_id: Auth.getID(),
       },
-      Headers: {
-        api_key: localStorage.getItem("auth-token"),
-      },
     });
-
-    console.log(response.data.body);
 
     this.setState({
       data: response.data.body.slice(
@@ -44,15 +42,18 @@ class TicketTable extends React.Component {
   };
 
   deleteTicket = async (ticket_id, movie_id) => {
-    console.log(localStorage.getItem("auth-token"));
-    if (window.confirm(`Do you want the ticket ?`)) {
+    if (window.confirm(`Do you want to delete the ticket ?`)) {
       await api.delete("/ticket/delete_ticket", {
         data: {
           ticket_id,
           movie_id,
           customer_id: Auth.getID(),
         },
+        params: {
+          api_key: localStorage.getItem("auth-token"),
+        },
         headers: {
+          // api_key: localStorage.getItem('auth-token')
           "auth-token": localStorage.getItem("auth-token"),
         },
       });
@@ -84,6 +85,16 @@ class TicketTable extends React.Component {
     });
   };
 
+  returnedRunder() {
+    if (!(Auth.isAuthenticated && Auth.isUser)) {
+      return <Navigate replace to="/404"></Navigate>;
+    } else if (!this.state.data.length) {
+      return <div>NOT</div>;
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <>
@@ -94,19 +105,24 @@ class TicketTable extends React.Component {
             <table className="styled-table">
               <thead>
                 <tr>
-                  <th className="table-url hide "></th>
-                  <th className="table-name">Movie</th>
+                  <th className="table-url hide url "></th>
+                  <th className="table-name label-name">Movie</th>
                   <th className="table-email">Screening Time</th>
                   <th className="table-phone re-hide">Ticket Price</th>
-                  <th className="table-btn"></th>
+                  <th className="table-btn mit">Delete</th>
                 </tr>
               </thead>
+
               <tbody>
                 {this.state.data.map((item, index) => {
                   return (
                     <tr key={index}>
                       <td className="table-url hide">
-                        <img className="img" src={item.url} />
+                        <img
+                          className="img"
+                          src={item.url}
+                          alt={item.name + " url"}
+                        />
                       </td>
                       <td className="table-name">{item.name}</td>
                       <td className="table-email">

@@ -2,6 +2,7 @@
   border: 2px solid black;
   width: 70%;
   margin: 70px auto;
+  padding: 0;
   background: #f3f3f3;
 }
 
@@ -36,6 +37,10 @@
 .table-url {
   width: 10%;
 }
+
+.url {
+  width: 20%;
+}
 .img {
   width: 60%;
   align-items: center;
@@ -49,6 +54,11 @@
 .table-email {
   width: 22%;
 }
+
+.label-name {
+  width: 40%;
+}
+
 .table-phone {
   width: 15%;
 }
@@ -97,7 +107,6 @@
   justify-content: center;
   margin-left: 20%;
   font-size: large;
-
 }
 
 @media screen and (max-width: 1000px) {
