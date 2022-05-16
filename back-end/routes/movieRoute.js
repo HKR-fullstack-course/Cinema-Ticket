@@ -117,7 +117,7 @@ router
     try {
       const allMovies = await Movie.find();
       const movieName = await Movie.findOne({ _id: req.params._id });
-      const data = allMovies.filter((item) => item.name >= movieName.name);
+      const data = allMovies.filter((item) => item.name.trim() === movieName.name.trim());
 
       let returnedValue = [];
 
