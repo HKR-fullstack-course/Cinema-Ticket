@@ -7,35 +7,64 @@ Requitements
 ------------
 -   node
 -   npm
--   .env
+-   .env, with the following variables:
+       -   REACT_APP_CLOUD_NAME
+       -   REACT_APP_PRESET_NAME
+       -   DB_CONNECTION
+       -   MY_PASSWORD
+       -   API_TOKEN
+       -   CLIENT_TOKEN
 
 &nbsp;
 
-Set up
-------
-
--   Change directory into repository after cloning
--   open cmd and write the following to download dependencies
-&nbsp;
+Install dependencies
 ```sh
 npm i
 ```
+
+&nbsp;
+&nbsp;
+
+Back-end
+------
+&nbsp;
+Back-end is deployed and works seperatedly, you can view API-Doc [FROM HERE](https://api-cinema-ticket.herokuapp.com/)
+
+To run back-end locally
+```sh
+npm run server
+```
+For live server:
+```sh
+npm run dev
+```
+&nbsp;
+&nbsp;
+
+
+Front-end
+------
+
+You can view the deployed version  [FROM HERE](https://discovery-cinema.herokuapp.com/tickets)
+
+
+&nbsp;
+&nbsp;
+
+
+Locally
+------
+To run both Front-end & Back-end locally, after installing dependencies you should open two bashes.
+and run the following commands:
+
+front-end: [Port 3000](http://localhost:3000/)
 &nbsp;
 ```sh
 npm start
 ```
-
-
-
-
--   You are ready to run the back-end of the app, open a browser tab, port 5000 or [click here](http://localhost:5000)
-
-
 &nbsp;
-
-API-Doc
----------
-
--   API-Doc [CLICK HERE](https://api-cinema-ticket.herokuapp.com/)
-
-
+&nbsp;
+back-end: [Port 5000](http://localhost:5000/)
+```sh
+npm run dev
+```
