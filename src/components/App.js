@@ -19,6 +19,7 @@ import Auth from "../_helper/Auth";
 import Navbar from "./Navbar/NavbarGuest";
 import NavbarUser from "./Navbar/NavbarUser";
 import NavbarAdmin from "./Navbar/NavbarAdmin";
+import TicketTable from "../pages/ticketTable(User)";
 export const AuthContext = React.createContext();
 
 const App = () => {
@@ -37,7 +38,7 @@ const App = () => {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
-        <Route exact path="/services" element={<Services />} />
+        {/* <Route exact path="/services" element={<Services />} /> */}
         <Route exact path="/movies" element={<Movies />} />
         <Route exact path="/movie_list" element={<GuestMovie />} />
         <Route exact path="/signin" element={<Signin />} />
@@ -45,6 +46,7 @@ const App = () => {
         <Route exact path="/users" element={<Users />} />
         <Route exact path="/addMovie" element={<AddMovie />} />
         <Route exact path="/all_movies" element={<AllMovies />} />
+        <Route exact path="/tickets" element={<TicketTable />} />
 
         {/* //Movie slider  */}
         <Route exact path="/add_movie" element={<AddMovie />} />

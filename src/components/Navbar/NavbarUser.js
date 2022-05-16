@@ -34,7 +34,7 @@ const NavbarUser = () => {
         <NavMenu>
           <NavLink to="/movies">Movies</NavLink>
           <NavLink to="/about">About</NavLink>
-          
+          <NavLink to="/tickets">My Tickets</NavLink>
           {/* <NavLink to="/services">Buy Ticket</NavLink> */}
         </NavMenu>
         <NavBtn>

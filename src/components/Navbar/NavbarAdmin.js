@@ -36,7 +36,7 @@ const NavbarAdmin = (props) => {
         <NavMenu>
           <NavLink to="/movie_list">Movies</NavLink>
           <NavLink to="/add_movie">Add Movie</NavLink>
-          <NavLink to="/about">About</NavLink>
+          {/* <NavLink to="/about">About</NavLink> */}
           <NavLink to="/users">Users</NavLink>
           {/* <NavLink to="/create_admin">Create Admin Account</NavLink> */}
           <NavLink to="/all_movies">Table Of Movies</NavLink>

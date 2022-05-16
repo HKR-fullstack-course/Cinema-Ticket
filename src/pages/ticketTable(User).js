@@ -3,53 +3,69 @@ import "../style/table.css";
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-import api from "../api/api";
 import Auth from "../_helper/Auth";
+import api from "../api/api";
 import Footer from "../components/Footer";
 
-class Users extends React.Component {
+class TicketTable extends React.Component {
   state = {
     offset: 0,
     data: [],
-    perPage: 20, // change this for table-pagination
+    perPage: 15, // change this for table-pagination
     currentPage: 0,
     response: [],
+    deleted: false,
   };
 
-  deleteMovie = async (_id, name) => {
-    if (window.confirm(`Do you want to delete the user ${name} ?`)) {
-      await api.delete("/delete_movie", {
-        data: { _id },
-      });
-
-      // this.forceUpdate()  // <= this method doesn't work for a reason!
-      window.location.reload();
-    }
-  };
-
-  componentDidMount() {
-    // this.sendRequest();
-  }
-
-  componentWillUnmount() {
+  componentDidMount = () => {
     this.sendRequest();
-  }
+  };
 
   sendRequest = async () => {
-    const response = await api.get("all_movies_table", {
+    const response = await api.get("/ticket/user_tickets", {
       headers: {
         "auth-token": localStorage.getItem("auth-token"),
       },
+      params: {
+        customer_id: Auth.getID(),
+      },
     });
 
+    const uniqueSet = [
+      ...new Map(response.data.body.map((item) => [item.name.trim(), item])).values(),
+    ];
+
+
     this.setState({
-      data: response.data.body.slice(
+      data: uniqueSet.slice(
         this.state.offset,
         this.state.offset + this.state.perPage,
         (this.state.currentPage = 1)
       ),
-      response: response.data.body,
+      response: uniqueSet,
     });
+  };
+
+  deleteTicket = async (ticket_id, movie_id) => {
+    if (window.confirm(`Do you want to delete the ticket ?`)) {
+      await api.delete("/ticket/delete_ticket", {
+        data: {
+          ticket_id,
+          movie_id,
+          customer_id: Auth.getID(),
+        },
+        params: {
+          api_key: localStorage.getItem("auth-token"),
+        },
+        headers: {
+          // api_key: localStorage.getItem('auth-token')
+          "auth-token": localStorage.getItem("auth-token"),
+        },
+      });
+
+      // forceUpdate()   <= this method doesn't work for a reason!
+      window.location.reload();
+    }
   };
 
   rightClick = () => {
@@ -74,24 +90,34 @@ class Users extends React.Component {
     });
   };
 
+  returnedRunder() {
+    if (!(Auth.isAuthenticated && Auth.isUser)) {
+      return <Navigate replace to="/404"></Navigate>;
+    } else if (!this.state.data.length) {
+      return <div>NOT</div>;
+    } else {
+      return null;
+    }
+  }
+
   render() {
     return (
       <>
         <div className="table-container">
-          {!Auth.isAuthenticated || !Auth.isAdmin ? (
+          {!Auth.isAuthenticated || !Auth.isUser ? (
             <Navigate replace to="/404"></Navigate>
           ) : (
             <table className="styled-table">
               <thead>
                 <tr>
-                  <th className="table-url hide "></th>
-                  <th className="table-name">Name</th>
-                  <th className="table-time re-hide">Show Time</th>
-                  <th className="table-price">Ticket Price</th>
-                  <th className="table-nTicket hide">Available Tickets</th>
-                  <th className="table-btn"></th>
+                  <th className="table-url hide url "></th>
+                  <th className="table-name label-name">Movie</th>
+                  <th className="table-email">Screening Time</th>
+                  <th className="table-phone re-hide">Ticket Price</th>
+                  <th className="table-btn mit">Delete</th>
                 </tr>
               </thead>
+
               <tbody>
                 {this.state.data.map((item, index) => {
                   return (
@@ -104,24 +130,18 @@ class Users extends React.Component {
                         />
                       </td>
                       <td className="table-name">{item.name}</td>
+                      <td className="table-email">
+                        {item.screening.split("T")[0]}{" "}
+                        {item.screening.split("T")[1]}
+                      </td>
                       <td className="table-phone re-hide">
-                        {item.show_time.split("T")[0]}{" "}
-                        {item.show_time.split("T")[1]}
-                      </td>
-                      <td className="table-email table-price">
-                        {item.ticket_price}
-                      </td>
-                      <td className="table-nTicket hide">
-                        {item.number_of_seats}
-                      </td>
-                      <td className="table-nTicket hide">
-                        {item.number_of_seats}
+                        <span className="mit">{item.price}</span>
                       </td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"
                           onClick={() => {
-                            this.deleteMovie(item._id, item.name);
+                            this.deleteTicket(item.ticket_id, item.movie_id);
                           }}
                         >
                           Delete
@@ -152,4 +172,4 @@ class Users extends React.Component {
   }
 }
 
-export default Users;
+export default TicketTable;

@@ -28,13 +28,15 @@
 
 }
 .ImageWrapper{
-    margin-top:70px;
+
+    padding-top:43px;
 }
 .ImageWrapper2{
-    margin-top:69px;
+    margin-top:-10px;
     
 }
 .Title{
+    padding-top:40px;
     font-size:65px;
     text-align:center;
     color:#C70039;
