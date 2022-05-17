@@ -36,7 +36,7 @@ router
       customer;
       res.json({
         confirmation: "success",
-        body: "New ticket is added to db",
+        body: "New ticket is added",
       });
     } catch (error) {
       res.status(404).json(error);
