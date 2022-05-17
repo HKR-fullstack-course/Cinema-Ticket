@@ -100,7 +100,7 @@ class Register extends React.Component {
       if (!err?.response) {
         this.setState({ errMsg: "No Server Response" });
       } else if (err.response?.status === 400) {
-        this.setState("Email exists!");
+        this.setState({ errMsg:"Email exists!" });
       } else if (err.response?.status === 401) {
         this.setState({ errMsg: "No Server Response" });
       } else {
