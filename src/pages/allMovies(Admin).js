@@ -114,9 +114,6 @@ class Users extends React.Component {
                       <td className="table-nTicket hide">
                         {item.number_of_seats}
                       </td>
-                      <td className="table-nTicket hide">
-                        {item.number_of_seats}
-                      </td>
                       <th className="table-btn">
                         <button
                           className="delete-btn"
