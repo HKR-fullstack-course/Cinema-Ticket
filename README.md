@@ -1,4 +1,4 @@
-Back-End for Discovery-Cinema Website
+Discovery-Cinema Website
 =========
 
 &nbsp;
